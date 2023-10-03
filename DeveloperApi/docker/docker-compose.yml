@@ -1,0 +1,27 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:alpine3.18
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      # copy the sql script to create tables
+      - ./sql:/docker-entrypoint-initdb.d
+
+  developers-webserver:
+    image: tomcat:jdk11
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - /Users/tymofiikyshchuk/coding/Servlet/DeveloperApi/target/DeveloperApi.war:/usr/local/tomcat/webapps/DeveloperApi.war
+#      - /Users/tymofiikyshchuk/coding/Servlet/DeveloperApi/target/tima_big_cock.war:/usr/local/tomcat/webapps/tima_big_cock.war
