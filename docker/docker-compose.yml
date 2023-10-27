@@ -1,16 +1,18 @@
-version: '3.1'
+version: '3.8'
 
 services:
 
-  db:
+  developers-db:
     image: postgres:alpine3.18
-    restart: always
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
+      - "POSTGRES_DB=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    networks:
+      - my-network
     ports:
-      - 5434:5432
+      - 5432:5432
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
       # copy the sql script to create tables
@@ -19,7 +21,16 @@ services:
   developers-webserver:
     image: tomcat:jdk11
     restart: always
+    networks:
+      - my-network
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
     ports:
       - 8080:8080
+      - 5005:5005
     volumes:
       - ../target/DeveloperApi.war:/usr/local/tomcat/webapps/DeveloperApi.war
+
+networks:
+  my-network:
+    driver: bridge

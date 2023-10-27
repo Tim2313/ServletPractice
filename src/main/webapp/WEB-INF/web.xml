@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <!-- Определение сервлета MainServlet -->
+    <!-- Definition of the MainServlet servlet -->
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>org.example.MainServlet</servlet-class>
     </servlet>
 
-    <!-- Маппинг сервлета на URL-паттерн -->
+    <!-- Servlet's mapping for different urls -->
+
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 </web-app>
