@@ -29,7 +29,8 @@ services:
       - 8080:8080
       - 5005:5005
     volumes:
-      - ../target/DeveloperApi.war:/usr/local/tomcat/webapps/DeveloperApi.war
+      - ./target/war-file:/usr/local/tomcat/webapps/
+      - ./logs:/opt/DeveloperApi/
 
 networks:
   my-network:

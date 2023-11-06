@@ -34,12 +34,33 @@
             <version>2.10.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
 
     </dependencies>
 
     <build>
         <finalName>DeveloperApi</finalName>
-
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <outputDirectory>target/war-file</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
