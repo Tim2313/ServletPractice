@@ -1,5 +1,8 @@
 package org.example.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 
 
@@ -14,6 +17,7 @@ public class ConnectionService {
     private static final String SCHEMA = "jdbc:postgresql";
     private static final String HOST = "developers-db";
     private static final String PORT = "5432";
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionService.class);
     private final Connection connection;
     private static ConnectionService instance;
 
@@ -30,8 +34,9 @@ public class ConnectionService {
         try {
             Class.forName(DRIVER_POSTGRESQL);
             connectionLocal = DriverManager.getConnection(getDatabaseUrl(), DATABASE_USER, DATABASE_PASSWORD);
+            LOGGER.info("Connection Established!");
         } catch (Exception e) {
-            System.err.println("Error: check connection methods!");
+            LOGGER.error("Check connection methods!");
             e.printStackTrace();
             throw new RuntimeException(e);
         }
