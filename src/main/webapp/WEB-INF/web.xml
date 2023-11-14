@@ -4,7 +4,7 @@
     <!-- Definition of the MainServlet servlet -->
     <servlet>
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>org.example.MainServlet</servlet-class>
+        <servlet-class>org.example.web.MainServlet</servlet-class>
     </servlet>
 
     <!-- Servlet's mapping for different urls -->

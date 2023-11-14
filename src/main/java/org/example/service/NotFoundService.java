@@ -10,14 +10,14 @@ public class NotFoundService {
         stringBuilder
                 .append("<html>")
                 .append("<head></head>")
-                .append("<body>");
+                .append("<body>")
+                .append("<center>");
 
         stringBuilder
-                .append("<centre>")
-                .append("Not existing source;(")
-                .append("</centre>");
+                .append("Not existing source;(");
 
         stringBuilder
+                .append("</center>")
                 .append("</body>")
                 .append("</html>");
         return stringBuilder.toString();
