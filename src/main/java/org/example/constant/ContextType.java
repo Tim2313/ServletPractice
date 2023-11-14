@@ -1,12 +1,12 @@
 package org.example.constant;
 
-public enum ContextTypes {
+public enum ContextType {
     HTML("text/html"), JSON("application/json");
 
     private final String contextType;
 
 
-    ContextTypes(String contextType) {
+    ContextType(String contextType) {
         this.contextType = contextType;
     }
 

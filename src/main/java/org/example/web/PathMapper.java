@@ -1,6 +1,6 @@
 package org.example.web;
 
-import org.example.constant.RequestArguments;
+import org.example.constant.RequestArgument;
 import org.example.controller.DeveloperController;
 import org.example.controller.MainController;
 import org.example.model.Arguments;
@@ -28,7 +28,7 @@ public class PathMapper {
     }
 
     public Response getResponse(Arguments arguments) {
-        String pathWithWarName = arguments.getHashMap().get(RequestArguments.PATH);
+        String pathWithWarName = arguments.getHashMap().get(RequestArgument.PATH);
         UrlPath finalPath = UrlPath.getBySymbol(pathWithWarName);
         if (PAGE_MAP.containsKey(finalPath)) {
             return PAGE_MAP.get(finalPath).apply(arguments);

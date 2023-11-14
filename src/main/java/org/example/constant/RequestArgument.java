@@ -1,11 +1,11 @@
 package org.example.constant;
 
-public enum RequestArguments {
+public enum RequestArgument {
     PATH("path");
 
     private final String requestUrl;
 
-    RequestArguments(String requestUrl) {
+    RequestArgument(String requestUrl) {
         this.requestUrl = requestUrl;
     }
 

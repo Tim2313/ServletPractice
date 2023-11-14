@@ -1,9 +1,17 @@
 package org.example.model;
 
+import org.example.service.DeveloperService;
+
+import java.util.List;
+
 public class Response {
     private int code;
     private String body;
     private String contentType;
+    private String jspPath;
+
+    private List<JspAttribute> attributes;
+
 
     public Response() {
     }
@@ -14,11 +22,11 @@ public class Response {
         this.contentType = contentType;
     }
 
-    public int getCode() {
+    public int getStatusCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setStatusCode(int code) {
         this.code = code;
     }
 
@@ -36,5 +44,20 @@ public class Response {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+    public String getJspPath() {
+        return jspPath;
+    }
+
+    public void setJspPath(String jspPath) {
+        this.jspPath = jspPath;
+    }
+
+    public List<JspAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<JspAttribute> attributes) {
+        this.attributes = attributes;
     }
 }
