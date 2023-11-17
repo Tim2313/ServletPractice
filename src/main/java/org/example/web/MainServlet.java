@@ -21,7 +21,7 @@ public class MainServlet extends HttpServlet {
     private final PathMapper pageMapService = PathMapper.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String requestURI = req.getRequestURI();
 
         LOGGER.info("We enter on path {}", requestURI);
@@ -32,27 +32,37 @@ public class MainServlet extends HttpServlet {
 
         Response response = pageMapService.getResponse(arguments);
 
-        String contentType = response.getContentType();
-        response.setContentType(contentType);
+        String contentType = response.getResponseContentType();
+        response.setResponseContentType(contentType);
 
-        int code = response.getStatusCode();
-        response.setStatusCode(code);
+        int code = response.getResponseCode();
+        response.setResponseCode(code);
 
-        if (response.getAttributes() != null) {
-            List<JspAttribute> attributes = response.getAttributes();
+        if (response.getResponseAttributes() != null) {
+            List<JspAttribute> attributes = response.getResponseAttributes();
             for (JspAttribute attribute : attributes) {
                 req.setAttribute(attribute.getName(), attribute.getValue());
             }
         }
 
-        String jspPath = response.getJspPath();
+        String jspPath = response.getResponseJspAttributes();
 
         if (jspPath == null) {
-            resp.getWriter().write(response.getBody());
+            try {
+                resp.getWriter().write(response.getResponseBody());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(jspPath);
-        requestDispatcher.forward(req, resp);
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

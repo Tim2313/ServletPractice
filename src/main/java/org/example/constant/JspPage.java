@@ -1,7 +1,9 @@
 package org.example.constant;
 
 public enum JspPage {
-    HELLO_PAGE("/WEB-INF/views/helloPage.jsp"), DEVELOPER_TABLE_PAGE("/WEB-INF/views/developerTable.jsp"), NOT_FOUND_PAGE("/WEB-INF/views/notFoundPage.jsp");
+    HELLO_PAGE("/WEB-INF/views/helloPage.jsp"),
+    DEVELOPER_TABLE_PAGE("/WEB-INF/views/developerTable.jsp"),
+    NOT_FOUND_PAGE("/WEB-INF/views/notFoundPage.jsp");
 
     private final String jspType;
 

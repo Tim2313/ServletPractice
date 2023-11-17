@@ -1,17 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="org.example.constant.TableContent" %>
 <!DOCTYPE html>
 <html lang="en">
-<head></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Developers Table</title>
+</head>
 <center>
 <body>
-    <h2>Developers Table</h2>
     <table>
+     <h2>Developers Table</h2>
         <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Second Name</th>
-            <th>Age</th>
-            <th>Programming Language</th>
+        <% for (TableContent content : TableContent.values()) { %>
+                        <th><%= content.getTableContent() %></th>
+                    <% } %>
         </tr>
 
         <c:forEach var="developer" items="${developerList}">

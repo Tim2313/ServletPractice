@@ -29,18 +29,17 @@ public class DeveloperController {
         Response response = new Response();
 
         JspAttribute jspAttribute = new JspAttribute("developerList", developers);
-        LOGGER.info("developers: {}", developers);
         List<JspAttribute> attributes = new ArrayList<>();
         attributes.add(jspAttribute);
-        response.setAttributes(attributes);
+        response.setResponseAttributes(attributes);
 
         String contextType = ContextType.HTML.getContextType();
-        response.setContentType(contextType);
+        response.setResponseContentType(contextType);
 
         int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
-        response.setStatusCode(responseCode);
+        response.setResponseCode(responseCode);
 
-        response.setJspPath(JspPage.DEVELOPER_TABLE_PAGE.getJspType());
+        response.setResponseJspAttributes(JspPage.DEVELOPER_TABLE_PAGE.getJspType());
 
         LOGGER.info("'Html' page has showed!");
         return response;
@@ -52,12 +51,12 @@ public class DeveloperController {
 
         String jsonResponse = jsonService.getDevelopers(developers);
         String contextType = ContextType.JSON.getContextType();
-        response.setContentType(contextType);
+        response.setResponseContentType(contextType);
 
-        response.setBody(jsonResponse);
+        response.setResponseBody(jsonResponse);
 
         int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
-        response.setStatusCode(responseCode);
+        response.setResponseCode(responseCode);
 
         LOGGER.info("'Json' page has showed!");
         return response;

@@ -18,13 +18,13 @@ public class MainController {
         Response response = new Response();
 
         String contextType = ContextType.HTML.getContextType();
-        response.setContentType(contextType);
+        response.setResponseContentType(contextType);
 
         int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
-        response.setStatusCode(responseCode);
+        response.setResponseCode(responseCode);
 
         String jspPath = JspPage.HELLO_PAGE.getJspType();
-        response.setJspPath(jspPath);
+        response.setResponseJspAttributes(jspPath);
 
         LOGGER.info("'Hello' page has showed!");
         return response;
@@ -34,13 +34,13 @@ public class MainController {
         Response response = new Response();
 
         String contextType = ContextType.HTML.getContextType();
-        response.setContentType(contextType);
+        response.setResponseContentType(contextType);
 
         int responseCode = ResponseCode.HTTP_NOT_FOUND.getResponseCodes();
-        response.setStatusCode(responseCode);
+        response.setResponseCode(responseCode);
 
         String jspPath = JspPage.NOT_FOUND_PAGE.getJspType();
-        response.setJspPath(jspPath);
+        response.setResponseJspAttributes(jspPath);
 
         LOGGER.info("'NotFoundResponse' page has showed!");
         return response;
