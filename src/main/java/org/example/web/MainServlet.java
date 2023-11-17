@@ -51,17 +51,19 @@ public class MainServlet extends HttpServlet {
             try {
                 resp.getWriter().write(response.getResponseBody());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                LOGGER.error("Check if response body is not null");
+                e.printStackTrace();
+                throw new RuntimeException();
             }
         }
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(jspPath);
         try {
             requestDispatcher.forward(req, resp);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (ServletException | IOException e) {
+            LOGGER.error("Check if 'req' or 'resp' is not null");
+            e.printStackTrace();
+            throw new RuntimeException();
         }
 
     }
