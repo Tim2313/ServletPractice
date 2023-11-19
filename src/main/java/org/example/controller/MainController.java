@@ -46,6 +46,22 @@ public class MainController {
         return response;
     }
 
+    public Response getCreationFormType(Arguments arguments) {
+        Response response = new Response();
+
+        String contextType = ContextType.HTML.getContextType();
+        response.setResponseContentType(contextType);
+
+        int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
+        response.setResponseCode(responseCode);
+
+        String jspPath = JspPage.CREATION_FORM.getJspType();
+        response.setResponseJspAttributes(jspPath);
+
+        LOGGER.info("'Creation Form' page has showed!");
+        return response;
+    }
+
     public static MainController getInstance() {
         if (instance == null) {
             instance = new MainController();

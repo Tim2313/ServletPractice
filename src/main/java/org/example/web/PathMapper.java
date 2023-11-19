@@ -25,6 +25,7 @@ public class PathMapper {
 
         MainController mainController = MainController.getInstance();
         PAGE_MAP.put(UrlPath.HELLO, mainController::getHelloType);
+        PAGE_MAP.put(UrlPath.FORM, mainController::getCreationFormType);
     }
 
     public Response getResponse(Arguments arguments) {

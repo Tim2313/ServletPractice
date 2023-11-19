@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum UrlPath {
-    HTML("/html"), JSON("/json"), HELLO("/hello");
+    HTML("/html"), JSON("/json"), HELLO("/hello"), FORM("/form");
 
     private final String url;
 
@@ -16,6 +16,7 @@ public enum UrlPath {
         URL_PATTERN_STRING_MAP.put(HELLO.getUrl(), HELLO);
         URL_PATTERN_STRING_MAP.put(JSON.getUrl(), JSON);
         URL_PATTERN_STRING_MAP.put(HTML.getUrl(), HTML);
+        URL_PATTERN_STRING_MAP.put(FORM.getUrl(), FORM);
     }
 
     UrlPath(String url) {
