@@ -1,15 +1,16 @@
 package org.example.model;
 
-import org.example.constant.RequestArguments;
+import org.example.constant.RequestArgument;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Arguments {
 
-   private final Map<RequestArguments, String> hashMap = new HashMap<>();
+   private final Map<RequestArgument, String> hashMap = new HashMap<>();
 
-    public Map<RequestArguments, String> getHashMap() {
+    public Map<RequestArgument, String> getHashMap() {
         return hashMap;
     }
+
 }
