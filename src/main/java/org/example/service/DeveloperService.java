@@ -14,7 +14,6 @@ import java.util.List;
 public class DeveloperService {
 
     private static final String GET_DEVELOPERS = "select id, firstname, lastname, age, proglang from developer";
-
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_FIRST_NAME = "firstname";
     private static final String COLUMN_LASTNAME = "lastname";
@@ -49,8 +48,9 @@ public class DeveloperService {
 
                 developers.add(developer);
             }
+            LOGGER.info("{} developers have been retrieved from the database.", developers.size());
         } catch (SQLException ex) {
-            LOGGER.error("Check database's names of columns!");
+            LOGGER.error("Unable to retrieve developers from DB");
             ex.printStackTrace();
             throw new RuntimeException(ex);
         }

@@ -1,9 +1,13 @@
 package org.example.model;
 
+import java.util.List;
+
 public class Response {
     private int code;
     private String body;
     private String contentType;
+    private String jspPage;
+    private List<JspAttribute> jspAttributes;
 
     public Response() {
     }
@@ -36,5 +40,21 @@ public class Response {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public List<JspAttribute> getJspAttributes() {
+        return jspAttributes;
+    }
+
+    public void setJspAttributes(List<JspAttribute> attributes) {
+        this.jspAttributes = attributes;
+    }
+
+    public String getJspPage() {
+        return jspPage;
+    }
+
+    public void setJspPage(String jspPage) {
+        this.jspPage = jspPage;
     }
 }

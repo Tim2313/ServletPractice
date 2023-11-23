@@ -1,11 +1,17 @@
 package org.example.model;
-
 public class Developer {
+
+    public static final String COLUMN_NAME_ID = "Id";
+    public static final String COLUMN_NAME_FIRST_NAME = "First Name";
+    public static final String COLUMN_NAME_SECOND_NAME = "Second Name";
+    public static final String COLUMN_NAME_AGE = "Age";
+    public static final String COLUMN_NAME_PROGRAMMING_LANG = "Programming Language";
     private int id;
     private String firstName;
     private String secondName;
     private int age;
     private String progLang;
+
 
     public Developer(int id, String firstName, String secondName, int age, String progLang) {
         this.id = id;
@@ -57,6 +63,7 @@ public class Developer {
     public void setProgLang(String progLang) {
         this.progLang = progLang;
     }
+
 
     @Override
     public String toString() {
