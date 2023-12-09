@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum UrlPath {
-    HTML("/html"), JSON("/json"), HELLO("/hello");
+    GET_DEVELOPERS_HTML("/html/allDevelopers"),
+    GET_DEVELOPERS_JSON("/api/jsonDevelopers"),
+    GREETINGS_HTML("/html/greetings"),
+    CREATE_DEVELOPER("/api/developerForm");
 
     private final String url;
 
@@ -13,9 +16,10 @@ public enum UrlPath {
     private static final Map<String, UrlPath> URL_PATTERN_STRING_MAP = new HashMap<>();
 
     static {
-        URL_PATTERN_STRING_MAP.put(HELLO.getUrl(), HELLO);
-        URL_PATTERN_STRING_MAP.put(JSON.getUrl(), JSON);
-        URL_PATTERN_STRING_MAP.put(HTML.getUrl(), HTML);
+        URL_PATTERN_STRING_MAP.put(GREETINGS_HTML.getUrl(), GREETINGS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getUrl(), GET_DEVELOPERS_JSON);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_HTML.getUrl(), GET_DEVELOPERS_HTML);
+        URL_PATTERN_STRING_MAP.put(CREATE_DEVELOPER.getUrl(), CREATE_DEVELOPER);
     }
 
     UrlPath(String url) {
@@ -24,6 +28,11 @@ public enum UrlPath {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getFullUrl() {
+        String path = "%s%s";
+        return String.format(path, WAR_NAME, url);
     }
 
     // Method for get UrlPattern from the line with Urls

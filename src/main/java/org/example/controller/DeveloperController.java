@@ -3,6 +3,8 @@ package org.example.controller;
 import org.example.constant.ContextType;
 import org.example.constant.JspPage;
 import org.example.constant.ResponseCode;
+import org.example.constant.UrlPath;
+import org.example.converter.ArgumentToDeveloperConverter;
 import org.example.model.Arguments;
 import org.example.model.Developer;
 import org.example.model.JspAttribute;
@@ -20,11 +22,10 @@ public class DeveloperController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperController.class);
     private final DeveloperService developerService = DeveloperService.getInstance();
     private final JsonService jsonService = JsonService.getInstance();
-
-
+    private final ArgumentToDeveloperConverter argumentToDeveloperConverter = ArgumentToDeveloperConverter.getInstance();
     private static DeveloperController instance;
 
-    public Response getTableType(Arguments arguments) {
+    public Response getTablePage(Arguments arguments) {
         List<Developer> developers = developerService.getDevelopers();
         Response response = new Response();
 
@@ -39,13 +40,13 @@ public class DeveloperController {
         int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
         response.setCode(responseCode);
 
-        response.setJspPage(JspPage.DEVELOPER_TABLE_PAGE.getJspType());
+        response.setJspPage(JspPage.DEVELOPER_TABLE_PAGE.getJspPage());
         LOGGER.info("'Developer table' page has showed!");
 
         return response;
     }
 
-    public Response getJsonType(Arguments arguments) {
+    public Response getJsonPage(Arguments arguments) {
         List<Developer> developers = developerService.getDevelopers();
         Response response = new Response();
 
@@ -62,11 +63,22 @@ public class DeveloperController {
         return response;
     }
 
+    public Response create(Arguments arguments) {
+        Response response = new Response();
+
+        Developer developer = argumentToDeveloperConverter.convert(arguments);
+        developerService.addDeveloper(developer);
+
+        response.setRedirect(UrlPath.CREATE_DEVELOPER);
+
+        LOGGER.info("Developer is created!");
+        return response;
+    }
+
     public static DeveloperController getInstance() {
         if (instance == null) {
             instance = new DeveloperController();
         }
         return instance;
     }
-
 }

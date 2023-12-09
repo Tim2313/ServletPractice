@@ -7,10 +7,9 @@ import java.util.Map;
 
 public class Arguments {
 
-   private final Map<RequestArgument, String> hashMap = new HashMap<>();
+    private final Map<RequestArgument, String> hashMap = new HashMap<>();
 
     public Map<RequestArgument, String> getHashMap() {
         return hashMap;
     }
-
 }

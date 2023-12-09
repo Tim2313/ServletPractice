@@ -5,20 +5,20 @@ public class Developer {
     public static final String COLUMN_NAME_FIRST_NAME = "First Name";
     public static final String COLUMN_NAME_SECOND_NAME = "Second Name";
     public static final String COLUMN_NAME_AGE = "Age";
-    public static final String COLUMN_NAME_PROGRAMMING_LANG = "Programming Language";
+    public static final String COLUMN_NAME_PROGRAMMING_LANGUAGE = "Programming Language";
     private int id;
     private String firstName;
     private String secondName;
     private int age;
-    private String progLang;
+    private String programmingLanguage;
 
 
-    public Developer(int id, String firstName, String secondName, int age, String progLang) {
+    public Developer(int id, String firstName, String secondName, int age, String programmingLanguage) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.age = age;
-        this.progLang = progLang;
+        this.programmingLanguage = programmingLanguage;
     }
 
     public Developer() {
@@ -56,12 +56,12 @@ public class Developer {
         this.age = age;
     }
 
-    public String getProgLang() {
-        return progLang;
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
     }
 
-    public void setProgLang(String progLang) {
-        this.progLang = progLang;
+    public void setProgrammingLanguage(String programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
 
@@ -72,7 +72,7 @@ public class Developer {
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", age=" + age +
-                ", progLang='" + progLang + '\'' +
+                ", programmingLanguage='" + programmingLanguage + '\'' +
                 '}';
     }
 }

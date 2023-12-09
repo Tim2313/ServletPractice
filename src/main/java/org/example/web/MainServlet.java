@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.constant.RequestArgument;
+import org.example.converter.RequestParametersToArguments;
 import org.example.model.Arguments;
 import org.example.model.JspAttribute;
 import org.example.model.Response;
@@ -16,21 +17,23 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainServlet extends HttpServlet {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MainServlet.class);
-    private final PathMapper pageMapService = PathMapper.getInstance();
+    private final PathMapper pathMapper = PathMapper.getInstance();
+    private final RequestParametersToArguments requestParametersToArguments = RequestParametersToArguments.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String requestURI = req.getRequestURI();
 
+        String requestHttpMethod = req.getMethod();
+
         LOGGER.info("We enter on path {}", requestURI);
 
-
         Arguments arguments = new Arguments();
-        arguments.getHashMap().put(RequestArgument.PATH, requestURI);
+        arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
+        arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
-        Response response = pageMapService.getResponse(arguments);
+        Response response = pathMapper.getResponseGET(arguments);
 
         String contentType = response.getContentType();
         response.setContentType(contentType);
@@ -38,22 +41,20 @@ public class MainServlet extends HttpServlet {
         int code = response.getCode();
         response.setCode(code);
 
-        if (response.getJspAttributes() != null) {
-            List<JspAttribute> attributes = response.getJspAttributes();
-            for (JspAttribute attribute : attributes) {
-                req.setAttribute(attribute.getName(), attribute.getValue());
+        String jspPage = response.getJspPage();
+
+        if (jspPage != null) {
+            if (response.getJspAttributes() != null) {
+                List<JspAttribute> attributes = response.getJspAttributes();
+                for (JspAttribute attribute : attributes) {
+                    req.setAttribute(attribute.getName(), attribute.getValue());
+                }
             }
-        }
-
-        String jspPath = response.getJspPage();
-
-
-        if (jspPath != null) {
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher(jspPath);
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher(jspPage);
             try {
                 requestDispatcher.forward(req, resp);
             } catch (ServletException | IOException e) {
-                LOGGER.error("Failed to forward to jsp '{}'. Error: {}", jspPath, e.getMessage());
+                LOGGER.error("Failed to forward to jsp '{}'. Error: {}", jspPage, e.getMessage());
                 e.printStackTrace();
                 throw new RuntimeException();
             }
@@ -65,6 +66,31 @@ public class MainServlet extends HttpServlet {
                 e.printStackTrace();
                 throw new RuntimeException();
             }
+        }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+
+        String requestURI = req.getRequestURI();
+        String requestHttpMethod = req.getMethod();
+
+        LOGGER.info(requestURI);
+        LOGGER.info(requestHttpMethod);
+
+        Arguments arguments = requestParametersToArguments.convert(req);
+
+        Response response = pathMapper.getResponsePOST(arguments);
+
+        String redirectUrl = response.getRedirect().getFullUrl();
+
+        try {
+            resp.sendRedirect(redirectUrl);
+        } catch (IOException e) {
+            LOGGER.error("Wrong path: {} !", redirectUrl);
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
