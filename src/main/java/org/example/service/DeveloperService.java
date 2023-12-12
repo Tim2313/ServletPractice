@@ -1,5 +1,8 @@
 package org.example.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.model.Developer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +22,6 @@ public class DeveloperService {
     public static final String COLUMN_PROGRAMMING_LANGUAGE = "programmingLanguage";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperService.class);
     private final ConnectionService connectionService = ConnectionService.getInstance();
-
     private static DeveloperService instance;
 
     public List<Developer> getDevelopers() {
@@ -54,11 +56,15 @@ public class DeveloperService {
         return developers;
     }
 
-    public void addDeveloper(Developer developer) {
+    public void addDeveloper(String jsonQuery) {
         Connection connection = connectionService.getConnection();
 
         PreparedStatement preparedStatement;
+        ObjectMapper objectMapper = new ObjectMapper();
+
         try {
+
+            Developer developer = objectMapper.readValue(jsonQuery, Developer.class);
             preparedStatement = connection.prepareStatement(ADD_DEVELOPER);
 
             preparedStatement.setString(1, developer.getFirstName());
@@ -70,6 +76,8 @@ public class DeveloperService {
         } catch (SQLException e) {
             LOGGER.error("Error occurs in sql query: {}", e.getErrorCode());
             e.printStackTrace();
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }

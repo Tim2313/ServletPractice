@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.google.gson.Gson;
 import org.example.constant.ContextType;
 import org.example.constant.JspPage;
 import org.example.constant.ResponseCode;
@@ -67,7 +68,8 @@ public class DeveloperController {
         Response response = new Response();
 
         Developer developer = argumentToDeveloperConverter.convert(arguments);
-        developerService.addDeveloper(developer);
+        String jsonString = new Gson().toJson(developer);
+        developerService.addDeveloper(jsonString);
 
         response.setRedirect(UrlPath.CREATE_DEVELOPER);
 

@@ -8,7 +8,6 @@ public enum UrlPath {
     GET_DEVELOPERS_JSON("/api/jsonDevelopers"),
     GREETINGS_HTML("/html/greetings"),
     CREATE_DEVELOPER("/api/developerForm");
-
     private final String url;
 
     private static final String WAR_NAME = "/DeveloperApi";

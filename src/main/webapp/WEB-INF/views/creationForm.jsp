@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Developer Form</title>
+  <%@ page import="org.example.constant.UrlPath" %>
   <style>
   body {
     display: flex;
@@ -14,7 +15,7 @@
   }
 
   form {
-    width: 300px; /* Set a width for the form */
+    width: 300px;
   }
 
   section {
@@ -27,13 +28,13 @@
   }
 
   label {
-    margin-bottom: 5px; /* Adjust the margin as needed */
+    margin-bottom: 5px;
   }
 
   input {
     width: 100%;
     padding: 8px;
-    margin-bottom: 10px; /* Adjust the margin as needed */
+    margin-bottom: 10px;
     box-sizing: border-box;
   }
 
@@ -47,7 +48,7 @@
 
 <body>
 
-  <form action="/DeveloperApi/api/developerForm" method="POST">
+  <form action="<%=UrlPath.CREATE_DEVELOPER.getFullUrl()%>" method="POST">
       <section>
         <h2>New developer information</h2>
           <label for="firstName">
