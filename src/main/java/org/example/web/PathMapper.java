@@ -38,6 +38,7 @@ public class PathMapper {
         if (GET_PAGE_MAP.containsKey(finalPath)) {
             return GET_PAGE_MAP.get(finalPath).apply(arguments);
         }
+        LOGGER.info("Unknown path: {}", finalPath.toString());
         return NOT_FOUND_RESPONSE_PAGE_PROCESSOR.apply(arguments);
     }
 
@@ -47,6 +48,7 @@ public class PathMapper {
         if (POST_PAGE_MAP.containsKey(finalPath)) {
             return POST_PAGE_MAP.get(finalPath).apply(arguments);
         }
+        LOGGER.info("Unknown path: {}", finalPath.toString());
         return NOT_FOUND_RESPONSE_PAGE_PROCESSOR.apply(arguments);
     }
 

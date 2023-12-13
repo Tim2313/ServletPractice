@@ -13,11 +13,11 @@ import java.util.List;
 
 public class DeveloperService {
 
-    private static final String GET_DEVELOPERS = "select id, firstname, lastname, age, programmingLanguage from developer";
-    private static final String ADD_DEVELOPER = "INSERT INTO developer(firstname, lastname, age, programmingLanguage) VALUES (?, ?, ?, ?)";
+    private static final String GET_DEVELOPERS = "select id, firstName, lastName, age, programmingLanguage from developer";
+    private static final String ADD_DEVELOPER = "INSERT INTO developer(firstName, lastName, age, programmingLanguage) VALUES (?, ?, ?, ?)";
     private static final String COLUMN_ID = "id";
-    public static final String COLUMN_FIRST_NAME = "firstname";
-    public static final String COLUMN_LASTNAME = "lastname";
+    public static final String COLUMN_FIRST_NAME = "firstName";
+    public static final String COLUMN_LASTNAME = "lastName";
     public static final String COLUMN_AGE = "age";
     public static final String COLUMN_PROGRAMMING_LANGUAGE = "programmingLanguage";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperService.class);
@@ -56,15 +56,12 @@ public class DeveloperService {
         return developers;
     }
 
-    public void addDeveloper(String jsonQuery) {
+    public void addDeveloper(Developer developer) {
         Connection connection = connectionService.getConnection();
 
         PreparedStatement preparedStatement;
-        ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-
-            Developer developer = objectMapper.readValue(jsonQuery, Developer.class);
             preparedStatement = connection.prepareStatement(ADD_DEVELOPER);
 
             preparedStatement.setString(1, developer.getFirstName());
@@ -77,10 +74,9 @@ public class DeveloperService {
             LOGGER.error("Error occurs in sql query: {}", e.getErrorCode());
             e.printStackTrace();
             throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         }
     }
+
     public static DeveloperService getInstance() {
         if (instance == null) {
             instance = new DeveloperService();

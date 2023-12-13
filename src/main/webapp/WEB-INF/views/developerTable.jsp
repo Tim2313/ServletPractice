@@ -6,6 +6,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Developers Table</title>
+  <style>
+   table, th, td {
+    border: 1px solid;
+  }
+  </style>
 </head>
 
 <body>

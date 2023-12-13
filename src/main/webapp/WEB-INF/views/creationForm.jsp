@@ -54,25 +54,25 @@
           <label for="firstName">
             <span>First Name: </span>
           </label>
-          <input type="text" name="First Name" required />
+          <input type="text" name="firstName" required />
 
 
           <label for="secondName">
             <span>Second Name: </span>
           </label>
-          <input type="text" name="Second Name" required />
+          <input type="text" name="lastName" required />
 
 
           <label for="age">
             <span>Age: </span>
           </label>
-          <input type="text" name="Age" required />
+          <input type="text" name="age" required />
 
 
           <label for="programmingLanguage">
             <span>Programming Language: </span>
           </label>
-          <input type="text" name="Programming Language" required />
+          <input type="text" name="programmingLanguage" required />
 
       </section>
 

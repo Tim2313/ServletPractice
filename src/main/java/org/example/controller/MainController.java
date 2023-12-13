@@ -22,7 +22,7 @@ public class MainController {
         int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
         response.setCode(responseCode);
 
-        String jspPage = JspPage.HELLO_PAGE.getJspPage();
+        String jspPage = JspPage.HELLO_PAGE.getFilePath();
         response.setJspPage(jspPage);
 
         LOGGER.info("'Hello' page has showed!");
@@ -38,7 +38,7 @@ public class MainController {
         int responseCode = ResponseCode.HTTP_NOT_FOUND.getResponseCodes();
         response.setCode(responseCode);
 
-        String jspPage = JspPage.NOT_FOUND_PAGE.getJspPage();
+        String jspPage = JspPage.NOT_FOUND_PAGE.getFilePath();
         response.setJspPage(jspPage);
 
         LOGGER.info("'NotFoundResponse' page has showed!");
@@ -54,7 +54,7 @@ public class MainController {
         int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
         response.setCode(responseCode);
 
-        String jspPage = JspPage.CREATION_FORM_PAGE.getJspPage();
+        String jspPage = JspPage.CREATION_FORM_PAGE.getFilePath();
         response.setJspPage(jspPage);
 
         LOGGER.info("'CreationFormPage' page has showed!");

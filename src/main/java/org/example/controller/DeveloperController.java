@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.example.constant.ContextType;
 import org.example.constant.JspPage;
@@ -41,7 +43,7 @@ public class DeveloperController {
         int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
         response.setCode(responseCode);
 
-        response.setJspPage(JspPage.DEVELOPER_TABLE_PAGE.getJspPage());
+        response.setJspPage(JspPage.DEVELOPER_TABLE_PAGE.getFilePath());
         LOGGER.info("'Developer table' page has showed!");
 
         return response;
@@ -69,7 +71,18 @@ public class DeveloperController {
 
         Developer developer = argumentToDeveloperConverter.convert(arguments);
         String jsonString = new Gson().toJson(developer);
-        developerService.addDeveloper(jsonString);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            Developer newDeveloper = objectMapper.readValue(jsonString, Developer.class);
+
+            developerService.addDeveloper(newDeveloper);
+        } catch (JsonProcessingException e) {
+            LOGGER.info("New developer is added!");
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
         response.setRedirect(UrlPath.CREATE_DEVELOPER);
 

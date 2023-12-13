@@ -1,7 +1,7 @@
 CREATE TABLE developer(
     id SERIAL PRIMARY KEY,
-    firstname VARCHAR(255) NOT NULL,
-    lastname VARCHAR(255) NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
     age INT NOT NULL,
     programmingLanguage VARCHAR(50) NOT NULL
 );

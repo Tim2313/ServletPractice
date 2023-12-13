@@ -2,10 +2,10 @@ package org.example.model;
 public class Developer {
 
     public static final String COLUMN_NAME_ID = "Id";
-    public static final String COLUMN_NAME_FIRST_NAME = "First Name";
-    public static final String COLUMN_NAME_SECOND_NAME = "Second Name";
-    public static final String COLUMN_NAME_AGE = "Age";
-    public static final String COLUMN_NAME_PROGRAMMING_LANGUAGE = "Programming Language";
+    public static final String COLUMN_NAME_FIRST_NAME = "firstName";
+    public static final String COLUMN_NAME_SECOND_NAME = "lastName";
+    public static final String COLUMN_NAME_AGE = "age";
+    public static final String COLUMN_NAME_PROGRAMMING_LANGUAGE = "programmingLanguage";
     private int id;
     private String firstName;
     private String secondName;
