@@ -34,6 +34,13 @@ public enum UrlPath {
         return String.format(path, WAR_NAME, url);
     }
 
+    /**
+     * Gets UrlPath enum value by url path string.
+     * Replaces WAR_NAME and finds corresponding UrlPath.
+     *
+     * @param url - url string to parse
+     * @return UrlPath enum value
+     */
     public static UrlPath getBySymbol(String url) {
         String path = url.replace(WAR_NAME, "");
         return URL_PATTERN_STRING_MAP.get(path);
