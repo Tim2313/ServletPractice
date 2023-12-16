@@ -12,7 +12,7 @@ public class ArgumentToDeveloperConverter {
 
         Developer developer = new Developer();
 
-        String firstName = arguments.getHashMap().get(RequestArgument.FIRST_NAME);
+        String firstName = arguments.getHashMap().get(RequestArgument.FIRSTNAME);
         developer.setFirstName(firstName);
 
         String secondName = arguments.getHashMap().get(RequestArgument.LASTNAME);

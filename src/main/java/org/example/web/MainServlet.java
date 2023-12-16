@@ -25,6 +25,8 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String requestURI = req.getRequestURI();
 
+        RequestArgument.FIRSTNAME.getRequestArgument();
+
         String requestHttpMethod = req.getMethod();
 
         LOGGER.info("We enter on path {}", requestURI);

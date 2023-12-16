@@ -1,11 +1,9 @@
 package converter;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.checkerframework.checker.units.qual.A;
 import org.example.constant.RequestArgument;
 import org.example.converter.RequestParametersToArguments;
 import org.example.model.Arguments;
-import org.example.model.Developer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,16 +20,16 @@ class RequestParametersToArgumentsTest {
     @Test
     public void shouldConvert() {
 
-        Mockito.when(httpServletRequest.getParameter(Developer.COLUMN_NAME_FIRST_NAME)).thenReturn("Jonh");
-        Mockito.when(httpServletRequest.getParameter(Developer.COLUMN_NAME_SECOND_NAME)).thenReturn("Jakik");
-        Mockito.when(httpServletRequest.getParameter(Developer.COLUMN_NAME_AGE)).thenReturn("23");
-        Mockito.when(httpServletRequest.getParameter(Developer.COLUMN_NAME_PROGRAMMING_LANGUAGE)).thenReturn("Java");
+        Mockito.when(httpServletRequest.getParameter(RequestArgument.FIRSTNAME.getRequestArgument())).thenReturn("Jonh");
+        Mockito.when(httpServletRequest.getParameter(RequestArgument.LASTNAME.getRequestArgument())).thenReturn("Jakik");
+        Mockito.when(httpServletRequest.getParameter(RequestArgument.AGE.getRequestArgument())).thenReturn("23");
+        Mockito.when(httpServletRequest.getParameter(RequestArgument.PROGRAMMING_LANGUAGE.getRequestArgument())).thenReturn("Java");
 
         RequestParametersToArguments requestParametersToArguments = new RequestParametersToArguments();
 
         Arguments arguments = requestParametersToArguments.convert(httpServletRequest);
 
-        Assertions.assertEquals("Jonh", arguments.getHashMap().get(RequestArgument.FIRST_NAME));
+        Assertions.assertEquals("Jonh", arguments.getHashMap().get(RequestArgument.FIRSTNAME));
         Assertions.assertEquals("Jakik", arguments.getHashMap().get(RequestArgument.LASTNAME));
         Assertions.assertEquals("23", arguments.getHashMap().get(RequestArgument.AGE));
         Assertions.assertEquals("Java", arguments.getHashMap().get(RequestArgument.PROGRAMMING_LANGUAGE));

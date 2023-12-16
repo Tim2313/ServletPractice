@@ -22,7 +22,7 @@ public class ArgumentToDeveloperConverterTest {
     public void shouldConvert() {
         Arguments arguments = new Arguments();
 
-        arguments.getHashMap().put(RequestArgument.FIRST_NAME, FIRST_NAME);
+        arguments.getHashMap().put(RequestArgument.FIRSTNAME, FIRST_NAME);
         arguments.getHashMap().put(RequestArgument.LASTNAME, SECOND_NAME);
         arguments.getHashMap().put(RequestArgument.AGE, AGE_STRING);
         arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, PROGRAMMING_LANGUAGE);

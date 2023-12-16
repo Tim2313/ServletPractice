@@ -3,7 +3,6 @@ package org.example.converter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.constant.RequestArgument;
 import org.example.model.Arguments;
-import org.example.model.Developer;
 
 public class RequestParametersToArguments {
     private static RequestParametersToArguments instance;
@@ -17,16 +16,16 @@ public class RequestParametersToArguments {
         arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
         arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
-        String firstName = req.getParameter(Developer.COLUMN_NAME_FIRST_NAME);
-        arguments.getHashMap().put(RequestArgument.FIRST_NAME, firstName);
+        String firstName = req.getParameter(RequestArgument.FIRSTNAME.getRequestArgument());
+        arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);
 
-        String lastName = req.getParameter(Developer.COLUMN_NAME_SECOND_NAME);
+        String lastName = req.getParameter(RequestArgument.LASTNAME.getRequestArgument());
         arguments.getHashMap().put(RequestArgument.LASTNAME, lastName);
 
-        String age = req.getParameter(Developer.COLUMN_NAME_AGE);
+        String age = req.getParameter(RequestArgument.AGE.getRequestArgument());
         arguments.getHashMap().put(RequestArgument.AGE, age);
 
-        String programmingLanguage = req.getParameter(Developer.COLUMN_NAME_PROGRAMMING_LANGUAGE);
+        String programmingLanguage = req.getParameter(RequestArgument.PROGRAMMING_LANGUAGE.getRequestArgument());
         arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, programmingLanguage);
 
         return arguments;

@@ -60,7 +60,6 @@ public class DeveloperService {
         Connection connection = connectionService.getConnection();
 
         PreparedStatement preparedStatement;
-
         try {
             preparedStatement = connection.prepareStatement(ADD_DEVELOPER);
 

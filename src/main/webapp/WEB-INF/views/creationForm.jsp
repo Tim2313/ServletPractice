@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Developer Form</title>
   <%@ page import="org.example.constant.UrlPath" %>
+  <%@ page import="org.example.constant.RequestArgument" %>
   <style>
   body {
     display: flex;
@@ -54,25 +55,25 @@
           <label for="firstName">
             <span>First Name: </span>
           </label>
-          <input type="text" name="firstName" required />
+          <input type="text" name="<%= RequestArgument.FIRSTNAME.getRequestUrl() %>" required />
 
 
           <label for="secondName">
             <span>Second Name: </span>
           </label>
-          <input type="text" name="lastName" required />
+          <input type="text" name="<%= RequestArgument.LASTNAME.getRequestUrl() %>" required />
 
 
           <label for="age">
             <span>Age: </span>
           </label>
-          <input type="text" name="age" required />
+          <input type="text" name="<%= RequestArgument.AGE.getRequestUrl() %>" required />
 
 
           <label for="programmingLanguage">
             <span>Programming Language: </span>
           </label>
-          <input type="text" name="programmingLanguage" required />
+          <input type="text" name="<%= RequestArgument.PROGRAMMING_LANGUAGE.getRequestUrl() %>" required />
 
       </section>
 
