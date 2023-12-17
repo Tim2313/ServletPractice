@@ -6,6 +6,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Developers Table</title>
+  <style>
+   table, th, td {
+    border: 1px solid;
+  }
+  </style>
 </head>
 
 <body>
@@ -17,7 +22,7 @@
         <th><%= Developer.COLUMN_NAME_FIRST_NAME %></th>
         <th><%= Developer.COLUMN_NAME_SECOND_NAME %></th>
         <th><%= Developer.COLUMN_NAME_AGE %></th>
-        <th><%= Developer.COLUMN_NAME_PROGRAMMING_LANG %></th>
+        <th><%= Developer.COLUMN_NAME_PROGRAMMING_LANGUAGE %></th>
       </tr>
       <c:forEach var="developer" items="${developerList}">
         <tr>
@@ -25,7 +30,7 @@
           <td>${developer.firstName}</td>
           <td>${developer.secondName}</td>
           <td>${developer.age}</td>
-          <td>${developer.progLang}</td>
+          <td>${developer.programmingLanguage}</td>
         </tr>
       </c:forEach>
     </table>

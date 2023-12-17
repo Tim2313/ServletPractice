@@ -5,7 +5,6 @@ public enum ContextType {
 
     private final String contextType;
 
-
     ContextType(String contextType) {
         this.contextType = contextType;
     }
