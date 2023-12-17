@@ -49,31 +49,31 @@
 
 <body>
 
-  <form action="<%=UrlPath.CREATE_DEVELOPER.getFullUrl()%>" method="POST">
+  <form action="<%= UrlPath.CREATE_DEVELOPER.getFullUrl() %>" method="POST">
       <section>
         <h2>New developer information</h2>
           <label for="firstName">
             <span>First Name: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.FIRSTNAME.getRequestUrl() %>" required />
+          <input type="text" name="<%= RequestArgument.FIRSTNAME.getRequestArgument() %>" required />
 
 
           <label for="secondName">
             <span>Second Name: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.LASTNAME.getRequestUrl() %>" required />
+          <input type="text" name="<%= RequestArgument.LASTNAME.getRequestArgument() %>" required />
 
 
           <label for="age">
             <span>Age: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.AGE.getRequestUrl() %>" required />
+          <input type="text" name="<%= RequestArgument.AGE.getRequestArgument() %>" required />
 
 
           <label for="programmingLanguage">
             <span>Programming Language: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.PROGRAMMING_LANGUAGE.getRequestUrl() %>" required />
+          <input type="text" name="<%= RequestArgument.PROGRAMMING_LANGUAGE.getRequestArgument() %>" required />
 
       </section>
 

@@ -12,7 +12,6 @@ public class Developer {
     private int age;
     private String programmingLanguage;
 
-
     public Developer(int id, String firstName, String secondName, int age, String programmingLanguage) {
         this.id = id;
         this.firstName = firstName;
