@@ -1,6 +1,5 @@
 package org.example.constant;
 
-import org.example.web.MainServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,10 +8,11 @@ import java.util.Map;
 
 public enum UrlPath {
     GET_DEVELOPERS_HTML("/html/allDevelopers"),
-    GET_DEVELOPERS_JSON("/api/jsonDevelopers"),
     GREETINGS_HTML("/html/greetings"),
     NOT_FOUND_HTML("/html/notFound"),
-    CREATE_DEVELOPER("/api/developerForm");
+    POST_DEVELOPERS_HTML("/html/developers"),
+    GET_DEVELOPERS_JSON("/api/developers"),
+    POST_DEVELOPERS_JSON("/api/developers");
     private final String url;
 
     private static final String WAR_NAME = "/DeveloperApi";
@@ -21,9 +21,10 @@ public enum UrlPath {
 
     static {
         URL_PATTERN_STRING_MAP.put(GREETINGS_HTML.getUrl(), GREETINGS_HTML);
-        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getUrl(), GET_DEVELOPERS_JSON);
         URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_HTML.getUrl(), GET_DEVELOPERS_HTML);
-        URL_PATTERN_STRING_MAP.put(CREATE_DEVELOPER.getUrl(), CREATE_DEVELOPER);
+        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_HTML.getUrl(), POST_DEVELOPERS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getUrl(), GET_DEVELOPERS_JSON);
+        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_JSON.getUrl(), POST_DEVELOPERS_JSON);
     }
 
     UrlPath(String url) {
@@ -48,8 +49,8 @@ public enum UrlPath {
      */
     public static UrlPath getBySymbol(String url) {
         String path = url.replace(WAR_NAME, "");
-        if (URL_PATTERN_STRING_MAP.get(path) == null){
-            LOGGER.info("The page: {}. Does not exist", path);
+        if (URL_PATTERN_STRING_MAP.get(path) == null) {
+            LOGGER.info("The page: '{}'. Does not exist", path);
             return NOT_FOUND_HTML;
         }
         return URL_PATTERN_STRING_MAP.get(path);

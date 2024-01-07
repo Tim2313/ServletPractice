@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.constant.RequestArgument;
+import org.example.converter.JsonToArgumentsConverter;
 import org.example.converter.RequestParametersToArguments;
 import org.example.model.Arguments;
 import org.example.model.JspAttribute;
@@ -20,6 +21,7 @@ public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainServlet.class);
     private final PathMapper pathMapper = PathMapper.getInstance();
     private final RequestParametersToArguments requestParametersToArguments = RequestParametersToArguments.getInstance();
+    private final JsonToArgumentsConverter jsonToArgumentsConverter = JsonToArgumentsConverter.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -38,10 +40,10 @@ public class MainServlet extends HttpServlet {
         Response response = pathMapper.getResponseGET(arguments);
 
         String contentType = response.getContentType();
-        response.setContentType(contentType);
+        resp.setContentType(contentType);
 
         int code = response.getCode();
-        response.setCode(code);
+        resp.setStatus(code);
 
         String jspPage = response.getJspPage();
 
@@ -73,7 +75,7 @@ public class MainServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         String requestURI = req.getRequestURI();
         String requestHttpMethod = req.getMethod();
@@ -81,18 +83,38 @@ public class MainServlet extends HttpServlet {
         LOGGER.info(requestURI);
         LOGGER.info(requestHttpMethod);
 
-        Arguments arguments = requestParametersToArguments.convert(req);
+        Arguments arguments = jsonToArgumentsConverter.convert(req);
 
         Response response = pathMapper.getResponsePOST(arguments);
 
-        String redirectUrl = response.getRedirect().getFullUrl();
+        String body = response.getBody();
 
-        try {
-            resp.sendRedirect(redirectUrl);
-        } catch (IOException e) {
-            LOGGER.error("Wrong path: {} !", redirectUrl);
-            e.printStackTrace();
-            throw new RuntimeException(e);
+        String contentType = response.getContentType();
+        resp.setContentType(contentType);
+
+        int code = response.getCode();
+        resp.setStatus(code);
+
+        if (body == null) {
+            String redirectUrl = response.getRedirect().getFullUrl();
+
+            try {
+                resp.sendRedirect(redirectUrl);
+            } catch (IOException e) {
+                LOGGER.error("Wrong path: {} !", redirectUrl);
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        } else {
+
+            try {
+                resp.getWriter().write(body);
+            } catch (IOException e) {
+                LOGGER.error("Error writing response body: {}", e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+
         }
     }
 }

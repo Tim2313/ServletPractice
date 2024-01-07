@@ -67,4 +67,17 @@ public class Response {
     public void setRedirect(UrlPath redirect) {
         this.redirect = redirect;
     }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "code=" + code +
+                ", body='" + body + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", jspPage='" + jspPage + '\'' +
+                ", redirect=" + redirect +
+                ", jspAttributes=" + jspAttributes +
+                '}';
+    }
 }
+

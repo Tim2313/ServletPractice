@@ -1,8 +1,5 @@
 package org.example.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.example.constant.ContextType;
 import org.example.constant.JspPage;
 import org.example.constant.ResponseCode;
@@ -18,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DeveloperController {
@@ -66,27 +64,34 @@ public class DeveloperController {
         return response;
     }
 
-    public Response create(Arguments arguments) {
+    public Response createDeveloperHtml(Arguments arguments) {
         Response response = new Response();
 
         Developer developer = argumentToDeveloperConverter.convert(arguments);
-        String jsonString = new Gson().toJson(developer);
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        developerService.addDeveloper(developer);
 
-        try {
-            Developer newDeveloper = objectMapper.readValue(jsonString, Developer.class);
-
-            developerService.addDeveloper(newDeveloper);
-        } catch (JsonProcessingException e) {
-            LOGGER.info("New developer is added!");
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-
-        response.setRedirect(UrlPath.CREATE_DEVELOPER);
+        response.setRedirect(UrlPath.POST_DEVELOPERS_HTML);
 
         LOGGER.info("Developer is created!");
+        return response;
+    }
+
+    public Response createDeveloperJson(Arguments arguments) {
+        Response response = new Response();
+
+        response.setCode(200);
+
+        String contextType = ContextType.JSON.getContextType();
+        response.setContentType(contextType);
+
+        String message = "{\"message\": \"Developer is created\"}";
+        response.setBody(message);
+
+        Developer developer = argumentToDeveloperConverter.convert(arguments);
+        developerService.addDeveloper(developer);
+
+        LOGGER.info("Json is converted to developer and created");
         return response;
     }
 

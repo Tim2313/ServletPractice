@@ -23,11 +23,11 @@ public class PathMapper {
         DeveloperController developerController = DeveloperController.getInstance();
         GET_PAGE_MAP.put(UrlPath.GET_DEVELOPERS_JSON, developerController::getJsonPage);
         GET_PAGE_MAP.put(UrlPath.GET_DEVELOPERS_HTML, developerController::getTablePage);
-        POST_PAGE_MAP.put(UrlPath.CREATE_DEVELOPER, developerController::create);
-
+        POST_PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, developerController::createDeveloperHtml);
+        POST_PAGE_MAP.put(UrlPath.POST_DEVELOPERS_JSON, developerController::createDeveloperJson);
         MainController mainController = MainController.getInstance();
         GET_PAGE_MAP.put(UrlPath.GREETINGS_HTML, mainController::getHelloPage);
-        GET_PAGE_MAP.put(UrlPath.CREATE_DEVELOPER, mainController::getCreationFromPage);
+        GET_PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, mainController::getCreationFromPage);
 
         NOT_FOUND_RESPONSE_PAGE_PROCESSOR = mainController::getNotFoundResponsePage;
     }
@@ -38,7 +38,7 @@ public class PathMapper {
         if (GET_PAGE_MAP.containsKey(finalPath)) {
             return GET_PAGE_MAP.get(finalPath).apply(arguments);
         }
-        LOGGER.info("Unknown path: {}", finalPath.toString());
+        LOGGER.info("Unknown path: {}", finalPath.getUrl());
         return NOT_FOUND_RESPONSE_PAGE_PROCESSOR.apply(arguments);
     }
 
@@ -48,7 +48,7 @@ public class PathMapper {
         if (POST_PAGE_MAP.containsKey(finalPath)) {
             return POST_PAGE_MAP.get(finalPath).apply(arguments);
         }
-        LOGGER.info("Unknown path: {}", finalPath.toString());
+        LOGGER.info("Unknown path: {}", finalPath.getUrl());
         return NOT_FOUND_RESPONSE_PAGE_PROCESSOR.apply(arguments);
     }
 
