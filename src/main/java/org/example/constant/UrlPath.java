@@ -8,10 +8,15 @@ import java.util.Map;
 
 public enum UrlPath {
     GET_DEVELOPERS_HTML("/html/allDevelopers"),
+
     GREETINGS_HTML("/html/greetings"),
+
     NOT_FOUND_HTML("/html/notFound"),
+
     POST_DEVELOPERS_HTML("/html/developers"),
+
     GET_DEVELOPERS_JSON("/api/developers"),
+
     POST_DEVELOPERS_JSON("/api/developers");
     private final String url;
 
@@ -47,7 +52,7 @@ public enum UrlPath {
      * @param url - url string to parse
      * @return UrlPath enum value
      */
-    public static UrlPath getBySymbol(String url) {
+    public static UrlPath getByFullUrl(String url) {
         String path = url.replace(WAR_NAME, "");
         if (URL_PATTERN_STRING_MAP.get(path) == null) {
             LOGGER.info("The page: '{}'. Does not exist", path);
