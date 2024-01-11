@@ -14,39 +14,28 @@ import java.util.function.Function;
 
 public class PathMapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(PathMapper.class);
-    private static final Map<UrlPath, Function<Arguments, Response>> GET_PAGE_MAP = new HashMap<>();
-    private static final Map<UrlPath, Function<Arguments, Response>> POST_PAGE_MAP = new HashMap<>();
+    private static final Map<UrlPath, Function<Arguments, Response>> PAGE_MAP = new HashMap<>();
     private final Function<Arguments, Response> NOT_FOUND_RESPONSE_PAGE_PROCESSOR;
     private static PathMapper instance;
 
     public PathMapper() {
         DeveloperController developerController = DeveloperController.getInstance();
-        GET_PAGE_MAP.put(UrlPath.GET_DEVELOPERS_JSON, developerController::getJsonPage);
-        GET_PAGE_MAP.put(UrlPath.GET_DEVELOPERS_HTML, developerController::getTablePage);
-        POST_PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, developerController::createDeveloperHtml);
-        POST_PAGE_MAP.put(UrlPath.POST_DEVELOPERS_JSON, developerController::createDeveloperJson);
+        PAGE_MAP.put(UrlPath.GET_DEVELOPERS_JSON, developerController::getJsonPage);
+        PAGE_MAP.put(UrlPath.GET_DEVELOPERS_HTML, developerController::getTablePage);
+        PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, developerController::createDeveloperHtml);
+        PAGE_MAP.put(UrlPath.POST_DEVELOPERS_JSON, developerController::createDeveloperJson);
         MainController mainController = MainController.getInstance();
-        GET_PAGE_MAP.put(UrlPath.GREETINGS_HTML, mainController::getHelloPage);
-        GET_PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, mainController::getCreationFromPage);
+        PAGE_MAP.put(UrlPath.GREETINGS_HTML, mainController::getHelloPage);
+        PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, mainController::getCreationFromPage);
 
         NOT_FOUND_RESPONSE_PAGE_PROCESSOR = mainController::getNotFoundResponsePage;
     }
 
-    public Response getResponseGET(Arguments arguments) {
+    public Response getResponse(Arguments arguments) {
         String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH);
         UrlPath finalPath = UrlPath.getByFullUrl(pathWithWarName);
-        if (GET_PAGE_MAP.containsKey(finalPath)) {
-            return GET_PAGE_MAP.get(finalPath).apply(arguments);
-        }
-        LOGGER.info("Unknown path: {}", finalPath.getUrl());
-        return NOT_FOUND_RESPONSE_PAGE_PROCESSOR.apply(arguments);
-    }
-
-    public Response getResponsePOST(Arguments arguments) {
-        String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH);
-        UrlPath finalPath = UrlPath.getByFullUrl(pathWithWarName);
-        if (POST_PAGE_MAP.containsKey(finalPath)) {
-            return POST_PAGE_MAP.get(finalPath).apply(arguments);
+        if (PAGE_MAP.containsKey(finalPath)) {
+            return PAGE_MAP.get(finalPath).apply(arguments);
         }
         LOGGER.info("Unknown path: {}", finalPath.getUrl());
         return NOT_FOUND_RESPONSE_PAGE_PROCESSOR.apply(arguments);

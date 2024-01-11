@@ -15,7 +15,7 @@ public enum UrlPath {
 
     POST_DEVELOPERS_HTML("/html/developers"),
 
-    GET_DEVELOPERS_JSON("/api/developers"),
+    GET_DEVELOPERS_JSON("/api/developersJson"),
 
     POST_DEVELOPERS_JSON("/api/developers");
     private final String url;
@@ -28,8 +28,8 @@ public enum UrlPath {
         URL_PATTERN_STRING_MAP.put(GREETINGS_HTML.getUrl(), GREETINGS_HTML);
         URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_HTML.getUrl(), GET_DEVELOPERS_HTML);
         URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_HTML.getUrl(), POST_DEVELOPERS_HTML);
-        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getUrl(), GET_DEVELOPERS_JSON);
         URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_JSON.getUrl(), POST_DEVELOPERS_JSON);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getUrl(), GET_DEVELOPERS_JSON);
     }
 
     UrlPath(String url) {

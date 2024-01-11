@@ -37,7 +37,7 @@ public class MainServlet extends HttpServlet {
         arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
         arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
-        Response response = pathMapper.getResponseGET(arguments);
+        Response response = pathMapper.getResponse(arguments);
 
         String contentType = response.getContentType();
         resp.setContentType(contentType);
@@ -85,7 +85,7 @@ public class MainServlet extends HttpServlet {
 
         Arguments arguments = jsonToArgumentsConverter.convert(req);
 
-        Response response = pathMapper.getResponsePOST(arguments);
+        Response response = pathMapper.getResponse(arguments);
 
         String body = response.getBody();
 
