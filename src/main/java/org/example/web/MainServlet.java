@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.constant.RequestArgument;
+import org.example.constant.UrlPath;
 import org.example.converter.JsonToArgumentsConverter;
 import org.example.converter.RequestParametersToArguments;
 import org.example.model.Arguments;
@@ -15,7 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainServlet.class);
@@ -26,9 +30,6 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String requestURI = req.getRequestURI();
-
-        RequestArgument.FIRSTNAME.getRequestArgument();
-
         String requestHttpMethod = req.getMethod();
 
         LOGGER.info("We enter on path {}", requestURI);
@@ -75,7 +76,7 @@ public class MainServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
         String requestURI = req.getRequestURI();
         String requestHttpMethod = req.getMethod();
@@ -83,7 +84,19 @@ public class MainServlet extends HttpServlet {
         LOGGER.info(requestURI);
         LOGGER.info(requestHttpMethod);
 
-        Arguments arguments = jsonToArgumentsConverter.convert(req);
+        Arguments arguments = new Arguments();
+
+        if (requestURI.equals(UrlPath.POST_DEVELOPERS_JSON.getFullUrl())) {
+            try {
+                arguments = jsonToArgumentsConverter.convert(req);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if (requestURI.equals(UrlPath.POST_DEVELOPERS_HTML.getFullUrl())) {
+            arguments = requestParametersToArguments.convert(req);
+        }
 
         Response response = pathMapper.getResponse(arguments);
 
@@ -97,12 +110,10 @@ public class MainServlet extends HttpServlet {
 
         if (body == null) {
             String redirectUrl = response.getRedirect().getFullUrl();
-
             try {
                 resp.sendRedirect(redirectUrl);
             } catch (IOException e) {
                 LOGGER.error("Wrong path: {} !", redirectUrl);
-                e.printStackTrace();
                 throw new RuntimeException(e);
             }
         } else {
@@ -111,10 +122,8 @@ public class MainServlet extends HttpServlet {
                 resp.getWriter().write(body);
             } catch (IOException e) {
                 LOGGER.error("Error writing response body: {}", e.getMessage());
-                e.printStackTrace();
                 throw new RuntimeException();
             }
-
         }
     }
 }

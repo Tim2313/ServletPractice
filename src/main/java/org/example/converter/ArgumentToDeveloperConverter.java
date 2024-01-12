@@ -3,10 +3,14 @@ package org.example.converter;
 import org.example.constant.RequestArgument;
 import org.example.model.Arguments;
 import org.example.model.Developer;
+import org.example.service.ConnectionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ArgumentToDeveloperConverter {
 
     private static ArgumentToDeveloperConverter instance;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ArgumentToDeveloperConverter.class);
 
     public Developer convert(Arguments arguments) {
 

@@ -20,13 +20,14 @@ public class PathMapper {
 
     public PathMapper() {
         DeveloperController developerController = DeveloperController.getInstance();
+        MainController mainController = MainController.getInstance();
+
         PAGE_MAP.put(UrlPath.GET_DEVELOPERS_JSON, developerController::getJsonPage);
-        PAGE_MAP.put(UrlPath.GET_DEVELOPERS_HTML, developerController::getTablePage);
+        PAGE_MAP.put(UrlPath.GET_ALL_DEVELOPERS_HTML, developerController::getTablePage);
+        PAGE_MAP.put(UrlPath.GET_DEVELOPERS_FORM_HTML, mainController::getCreationFromPage);
+        PAGE_MAP.put(UrlPath.GET_GREETINGS_HTML, mainController::getHelloPage);
         PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, developerController::createDeveloperHtml);
         PAGE_MAP.put(UrlPath.POST_DEVELOPERS_JSON, developerController::createDeveloperJson);
-        MainController mainController = MainController.getInstance();
-        PAGE_MAP.put(UrlPath.GREETINGS_HTML, mainController::getHelloPage);
-        PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, mainController::getCreationFromPage);
 
         NOT_FOUND_RESPONSE_PAGE_PROCESSOR = mainController::getNotFoundResponsePage;
     }
@@ -37,7 +38,7 @@ public class PathMapper {
         if (PAGE_MAP.containsKey(finalPath)) {
             return PAGE_MAP.get(finalPath).apply(arguments);
         }
-        LOGGER.info("Unknown path: {}", finalPath.getUrl());
+        LOGGER.info("The path doesn't contain the PAGE_MAP: {}", finalPath.getUrl());
         return NOT_FOUND_RESPONSE_PAGE_PROCESSOR.apply(arguments);
     }
 

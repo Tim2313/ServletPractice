@@ -7,13 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum UrlPath {
-    GET_DEVELOPERS_HTML("/html/allDevelopers"),
+    GET_ALL_DEVELOPERS_HTML("/html/allDevelopers"),
 
-    GREETINGS_HTML("/html/greetings"),
+    GET_GREETINGS_HTML("/html/greetings"),
 
     NOT_FOUND_HTML("/html/notFound"),
 
     POST_DEVELOPERS_HTML("/html/developers"),
+    GET_DEVELOPERS_FORM_HTML("/html/developersForm"),
 
     GET_DEVELOPERS_JSON("/api/developersJson"),
 
@@ -25,11 +26,12 @@ public enum UrlPath {
     private static final Map<String, UrlPath> URL_PATTERN_STRING_MAP = new HashMap<>();
 
     static {
-        URL_PATTERN_STRING_MAP.put(GREETINGS_HTML.getUrl(), GREETINGS_HTML);
-        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_HTML.getUrl(), GET_DEVELOPERS_HTML);
-        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_HTML.getUrl(), POST_DEVELOPERS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_GREETINGS_HTML.getUrl(), GET_GREETINGS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_ALL_DEVELOPERS_HTML.getUrl(), GET_ALL_DEVELOPERS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_FORM_HTML.getUrl(), GET_DEVELOPERS_FORM_HTML);
         URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_JSON.getUrl(), POST_DEVELOPERS_JSON);
         URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getUrl(), GET_DEVELOPERS_JSON);
+        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_HTML.getUrl(), POST_DEVELOPERS_HTML);
     }
 
     UrlPath(String url) {

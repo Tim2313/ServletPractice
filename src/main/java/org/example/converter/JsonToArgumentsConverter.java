@@ -8,7 +8,6 @@ import org.example.model.Arguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 public class JsonToArgumentsConverter {
@@ -24,15 +23,9 @@ public class JsonToArgumentsConverter {
         arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
         arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        BufferedReader bufferedReader = req.getReader();
-        while ((line = bufferedReader.readLine()) != null) {
-            stringBuilder.append(line);
-        }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(stringBuilder.toString());
+        JsonNode jsonNode = objectMapper.readTree(req.getReader());
 
         String firstName = jsonNode.get("firstName").asText();
         arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);

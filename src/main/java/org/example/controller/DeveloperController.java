@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DeveloperController {
@@ -71,7 +70,7 @@ public class DeveloperController {
 
         developerService.addDeveloper(developer);
 
-        response.setRedirect(UrlPath.POST_DEVELOPERS_HTML);
+        response.setRedirect(UrlPath.GET_DEVELOPERS_FORM_HTML);
 
         LOGGER.info("Developer is created!");
         return response;

@@ -71,7 +71,6 @@ public class DeveloperService {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("Error occurs in sql query: {}", e.getErrorCode());
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
