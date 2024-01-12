@@ -45,7 +45,7 @@ public class MainController {
         return response;
     }
 
-    public Response getCreationFromPage(Arguments arguments) {
+    public Response getCreationFormPage(Arguments arguments) {
         Response response = new Response();
 
         String contextType = ContextType.HTML.getContextType();

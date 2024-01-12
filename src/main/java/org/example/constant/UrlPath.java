@@ -14,6 +14,7 @@ public enum UrlPath {
     NOT_FOUND_HTML("/html/notFound"),
 
     POST_DEVELOPERS_HTML("/html/developers"),
+
     GET_DEVELOPERS_FORM_HTML("/html/developersForm"),
 
     GET_DEVELOPERS_JSON("/api/developersJson"),

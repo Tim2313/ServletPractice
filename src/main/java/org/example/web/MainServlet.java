@@ -87,11 +87,7 @@ public class MainServlet extends HttpServlet {
         Arguments arguments = new Arguments();
 
         if (requestURI.equals(UrlPath.POST_DEVELOPERS_JSON.getFullUrl())) {
-            try {
                 arguments = jsonToArgumentsConverter.convert(req);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
 
         if (requestURI.equals(UrlPath.POST_DEVELOPERS_HTML.getFullUrl())) {

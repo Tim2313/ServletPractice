@@ -14,7 +14,7 @@ public class JsonToArgumentsConverter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonToArgumentsConverter.class);
     private static JsonToArgumentsConverter instance;
 
-    public Arguments convert(HttpServletRequest req) throws IOException {
+    public Arguments convert(HttpServletRequest req)  {
         String requestURI = req.getRequestURI();
         String requestHttpMethod = req.getMethod();
 
@@ -25,7 +25,12 @@ public class JsonToArgumentsConverter {
 
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(req.getReader());
+        JsonNode jsonNode;
+        try {
+            jsonNode = objectMapper.readTree(req.getReader());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         String firstName = jsonNode.get("firstName").asText();
         arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);

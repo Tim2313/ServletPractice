@@ -24,7 +24,7 @@ public class PathMapper {
 
         PAGE_MAP.put(UrlPath.GET_DEVELOPERS_JSON, developerController::getJsonPage);
         PAGE_MAP.put(UrlPath.GET_ALL_DEVELOPERS_HTML, developerController::getTablePage);
-        PAGE_MAP.put(UrlPath.GET_DEVELOPERS_FORM_HTML, mainController::getCreationFromPage);
+        PAGE_MAP.put(UrlPath.GET_DEVELOPERS_FORM_HTML, mainController::getCreationFormPage);
         PAGE_MAP.put(UrlPath.GET_GREETINGS_HTML, mainController::getHelloPage);
         PAGE_MAP.put(UrlPath.POST_DEVELOPERS_HTML, developerController::createDeveloperHtml);
         PAGE_MAP.put(UrlPath.POST_DEVELOPERS_JSON, developerController::createDeveloperJson);
