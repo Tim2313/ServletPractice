@@ -49,7 +49,7 @@
 
 <body>
 
-  <form action="<%= UrlPath.POST_DEVELOPERS_HTML.getFullUrl() %>" method="POST">
+  <form action="<%= UrlPath.POST_DEVELOPERS_HTML.getWarUrl() %>" method="POST">
       <section>
         <h2>New developer information</h2>
           <label for="<%= RequestArgument.FIRSTNAME.getRequestArgument() %>">

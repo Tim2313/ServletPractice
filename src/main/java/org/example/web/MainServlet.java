@@ -16,10 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainServlet.class);
@@ -86,15 +83,15 @@ public class MainServlet extends HttpServlet {
 
         Arguments arguments = new Arguments();
 
-        if (requestURI.equals(UrlPath.POST_DEVELOPERS_JSON.getFullUrl())) {
+        if (requestURI.equals(UrlPath.POST_DEVELOPERS_JSON.getWarUrl())) {
                 arguments = jsonToArgumentsConverter.convert(req);
         }
 
-        if (requestURI.equals(UrlPath.POST_DEVELOPERS_HTML.getFullUrl())) {
+        if (requestURI.equals(UrlPath.POST_DEVELOPERS_HTML.getWarUrl())) {
             arguments = requestParametersToArguments.convert(req);
         }
 
-        Response response = pathMapper.getResponse(arguments);
+         Response response = pathMapper.getResponse(arguments);
 
         String body = response.getBody();
 
@@ -105,7 +102,7 @@ public class MainServlet extends HttpServlet {
         resp.setStatus(code);
 
         if (body == null) {
-            String redirectUrl = response.getRedirect().getFullUrl();
+            String redirectUrl = response.getRedirect().getWarUrl();
             try {
                 resp.sendRedirect(redirectUrl);
             } catch (IOException e) {

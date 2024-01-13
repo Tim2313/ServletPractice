@@ -34,7 +34,8 @@ public class PathMapper {
 
     public Response getResponse(Arguments arguments) {
         String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH);
-        UrlPath finalPath = UrlPath.getByFullUrl(pathWithWarName);
+        String method = arguments.getHashMap().get(RequestArgument.HTTP_METHOD);
+        UrlPath finalPath = UrlPath.getByFullUrl(pathWithWarName, method);
         if (PAGE_MAP.containsKey(finalPath)) {
             return PAGE_MAP.get(finalPath).apply(arguments);
         }

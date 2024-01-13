@@ -7,35 +7,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum UrlPath {
-    GET_ALL_DEVELOPERS_HTML("/html/allDevelopers"),
+    GET_ALL_DEVELOPERS_HTML("/html/allDevelopers", "GET"),
 
-    GET_GREETINGS_HTML("/html/greetings"),
+    GET_GREETINGS_HTML("/html/greetings", "GET"),
 
-    NOT_FOUND_HTML("/html/notFound"),
+    NOT_FOUND_HTML("/html/notFound", "GET"),
 
-    POST_DEVELOPERS_HTML("/html/developers"),
+    GET_DEVELOPERS_FORM_HTML("/html/developersForm", "GET"),
 
-    GET_DEVELOPERS_FORM_HTML("/html/developersForm"),
+    GET_DEVELOPERS_JSON("/api/developersJson", "GET"),
 
-    GET_DEVELOPERS_JSON("/api/developersJson"),
+    POST_DEVELOPERS_HTML("/html/developers", "POST"),
 
-    POST_DEVELOPERS_JSON("/api/developers");
+    POST_DEVELOPERS_JSON("/api/developers", "POST");
     private final String url;
+    private final String method;
 
     private static final String WAR_NAME = "/DeveloperApi";
     private static final Logger LOGGER = LoggerFactory.getLogger(UrlPath.class);
     private static final Map<String, UrlPath> URL_PATTERN_STRING_MAP = new HashMap<>();
 
     static {
-        URL_PATTERN_STRING_MAP.put(GET_GREETINGS_HTML.getUrl(), GET_GREETINGS_HTML);
-        URL_PATTERN_STRING_MAP.put(GET_ALL_DEVELOPERS_HTML.getUrl(), GET_ALL_DEVELOPERS_HTML);
-        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_FORM_HTML.getUrl(), GET_DEVELOPERS_FORM_HTML);
-        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_JSON.getUrl(), POST_DEVELOPERS_JSON);
-        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getUrl(), GET_DEVELOPERS_JSON);
-        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_HTML.getUrl(), POST_DEVELOPERS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_GREETINGS_HTML.getMethodUrl(), GET_GREETINGS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_ALL_DEVELOPERS_HTML.getMethodUrl(), GET_ALL_DEVELOPERS_HTML);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_FORM_HTML.getMethodUrl(), GET_DEVELOPERS_FORM_HTML);
+        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_JSON.getMethodUrl(), POST_DEVELOPERS_JSON);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getMethodUrl(), GET_DEVELOPERS_JSON);
+        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_HTML.getMethodUrl(), POST_DEVELOPERS_HTML);
     }
 
-    UrlPath(String url) {
+    UrlPath(String url, String method) {
+        this.method = method;
         this.url = url;
     }
 
@@ -43,9 +45,18 @@ public enum UrlPath {
         return url;
     }
 
-    public String getFullUrl() {
+    public String getWarUrl() {
         String path = "%s%s";
         return String.format(path, WAR_NAME, url);
+    }
+
+    public String getMethodUrl() {
+        String pathWithUrl = "%s%s";
+        return String.format(pathWithUrl, url, method);
+    }
+
+    public String getMethod() {
+        return method;
     }
 
     /**
@@ -55,12 +66,16 @@ public enum UrlPath {
      * @param url - url string to parse
      * @return UrlPath enum value
      */
-    public static UrlPath getByFullUrl(String url) {
+    public static UrlPath getByFullUrl(String url, String method) {
         String path = url.replace(WAR_NAME, "");
-        if (URL_PATTERN_STRING_MAP.get(path) == null) {
-            LOGGER.info("The page: '{}'. Does not exist", path);
+
+        String format = "%s%s";
+        String urlMethod = String.format(format, path, method);
+
+        if (URL_PATTERN_STRING_MAP.get(urlMethod) == null) {
+            LOGGER.info("The key: '{}'. Does not exist", urlMethod);
             return NOT_FOUND_HTML;
         }
-        return URL_PATTERN_STRING_MAP.get(path);
+        return URL_PATTERN_STRING_MAP.get(urlMethod);
     }
 }
