@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.constant.RequestArgument;
 import org.example.constant.UrlPath;
+import org.example.controller.DeveloperController;
+import org.example.controller.MainController;
 import org.example.converter.JsonToArgumentsConverter;
 import org.example.converter.RequestParametersToArguments;
 import org.example.model.Arguments;
@@ -23,6 +25,12 @@ public class MainServlet extends HttpServlet {
     private final PathMapper pathMapper = PathMapper.getInstance();
     private final RequestParametersToArguments requestParametersToArguments = RequestParametersToArguments.getInstance();
     private final JsonToArgumentsConverter jsonToArgumentsConverter = JsonToArgumentsConverter.getInstance();
+
+    @Override
+    public void init() {
+        MainController.getInstance();
+        DeveloperController.getInstance();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -84,14 +92,14 @@ public class MainServlet extends HttpServlet {
         Arguments arguments = new Arguments();
 
         if (requestURI.equals(UrlPath.POST_DEVELOPERS_JSON.getWarUrl())) {
-                arguments = jsonToArgumentsConverter.convert(req);
+            arguments = jsonToArgumentsConverter.convert(req);
         }
 
         if (requestURI.equals(UrlPath.POST_DEVELOPERS_HTML.getWarUrl())) {
             arguments = requestParametersToArguments.convert(req);
         }
 
-         Response response = pathMapper.getResponse(arguments);
+        Response response = pathMapper.getResponse(arguments);
 
         String body = response.getBody();
 

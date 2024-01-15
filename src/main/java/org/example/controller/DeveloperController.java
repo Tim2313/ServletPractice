@@ -11,6 +11,7 @@ import org.example.model.JspAttribute;
 import org.example.model.Response;
 import org.example.service.DeveloperService;
 import org.example.service.JsonService;
+import org.example.web.PathMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,12 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeveloperController {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperController.class);
     private final DeveloperService developerService = DeveloperService.getInstance();
     private final JsonService jsonService = JsonService.getInstance();
     private final ArgumentToDeveloperConverter argumentToDeveloperConverter = ArgumentToDeveloperConverter.getInstance();
     private static DeveloperController instance;
+
+    public DeveloperController() {
+        PathMapper pathMapper = PathMapper.getInstance();
+
+        pathMapper.addMapping(UrlPath.GET_DEVELOPERS_JSON, this::getJsonPage);
+        pathMapper.addMapping(UrlPath.GET_ALL_DEVELOPERS_HTML, this::getTablePage);
+        pathMapper.addMapping(UrlPath.POST_DEVELOPERS_HTML, this::createDeveloperHtml);
+        pathMapper.addMapping(UrlPath.POST_DEVELOPERS_JSON, this::createDeveloperJson);
+    }
 
     public Response getTablePage(Arguments arguments) {
         List<Developer> developers = developerService.getDevelopers();
