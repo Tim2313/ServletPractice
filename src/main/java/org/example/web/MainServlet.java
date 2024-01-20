@@ -7,13 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.constant.RequestArgument;
 import org.example.constant.UrlPath;
-import org.example.controller.DeveloperController;
-import org.example.controller.MainController;
 import org.example.converter.JsonToArgumentsConverter;
 import org.example.converter.RequestParametersToArguments;
 import org.example.model.Arguments;
 import org.example.model.JspAttribute;
 import org.example.model.Response;
+import org.example.service.InitializationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +23,12 @@ public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainServlet.class);
     private final PathMapper pathMapper = PathMapper.getInstance();
     private final RequestParametersToArguments requestParametersToArguments = RequestParametersToArguments.getInstance();
+    private final InitializationService initializationService = InitializationService.getInstance();
     private final JsonToArgumentsConverter jsonToArgumentsConverter = JsonToArgumentsConverter.getInstance();
 
     @Override
     public void init() {
-        MainController.getInstance();
-        DeveloperController.getInstance();
+        initializationService.getInitialized();
     }
 
     @Override

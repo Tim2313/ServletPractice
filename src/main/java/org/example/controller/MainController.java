@@ -14,12 +14,16 @@ public class MainController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
     private static MainController instance;
 
-    public MainController() {
+    private MainController() {
         PathMapper pathMapper = PathMapper.getInstance();
 
         pathMapper.addMapping(UrlPath.GET_DEVELOPERS_FORM_HTML, this::getCreationFormPage);
         pathMapper.addMapping(UrlPath.GET_GREETINGS_HTML, this::getHelloPage);
         pathMapper.addMapping(UrlPath.NOT_FOUND_HTML, this::getNotFoundResponsePage);
+    }
+
+    public MainController init(){
+        return instance;
     }
 
     public Response getHelloPage(Arguments arguments) {

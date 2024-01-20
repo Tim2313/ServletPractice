@@ -25,13 +25,17 @@ public class DeveloperController {
     private final ArgumentToDeveloperConverter argumentToDeveloperConverter = ArgumentToDeveloperConverter.getInstance();
     private static DeveloperController instance;
 
-    public DeveloperController() {
+    private DeveloperController() {
         PathMapper pathMapper = PathMapper.getInstance();
 
         pathMapper.addMapping(UrlPath.GET_DEVELOPERS_JSON, this::getJsonPage);
         pathMapper.addMapping(UrlPath.GET_ALL_DEVELOPERS_HTML, this::getTablePage);
         pathMapper.addMapping(UrlPath.POST_DEVELOPERS_HTML, this::createDeveloperHtml);
         pathMapper.addMapping(UrlPath.POST_DEVELOPERS_JSON, this::createDeveloperJson);
+    }
+
+    public DeveloperController init(){
+        return instance;
     }
 
     public Response getTablePage(Arguments arguments) {
