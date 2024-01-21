@@ -17,7 +17,7 @@ public class InitializationService {
         developerController.init();
         mainController.init();
 
-        LOGGER.info("Everything are initialized!");
+        LOGGER.info("Controllers are successfully initialized!");
     }
 
     public static InitializationService getInstance() {

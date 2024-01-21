@@ -6,6 +6,7 @@ import org.example.constant.ResponseCode;
 import org.example.constant.UrlPath;
 import org.example.model.Arguments;
 import org.example.model.Response;
+import org.example.web.MainServlet;
 import org.example.web.PathMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +23,8 @@ public class MainController {
         pathMapper.addMapping(UrlPath.NOT_FOUND_HTML, this::getNotFoundResponsePage);
     }
 
-    public MainController init(){
-        return instance;
+    public void init(){
+         MainController.getInstance();
     }
 
     public Response getHelloPage(Arguments arguments) {

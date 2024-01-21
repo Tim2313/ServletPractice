@@ -6,16 +6,16 @@ import org.example.model.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 
 public class PathMapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(PathMapper.class);
-    private static final Map<UrlPath, Function<Arguments, Response>> PAGE_MAP = new HashMap<>();
+    private static final Map<UrlPath, Function<Arguments, Response>> PAGE_MAP = new EnumMap<>(UrlPath.class);
     private static PathMapper instance;
 
-    public PathMapper() {
+    private PathMapper() {
     }
 
     public void addMapping(UrlPath url, Function<Arguments, Response> method) {

@@ -21,10 +21,10 @@ import java.util.List;
 
 public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainServlet.class);
-    private final PathMapper pathMapper = PathMapper.getInstance();
-    private final RequestParametersToArguments requestParametersToArguments = RequestParametersToArguments.getInstance();
-    private final InitializationService initializationService = InitializationService.getInstance();
-    private final JsonToArgumentsConverter jsonToArgumentsConverter = JsonToArgumentsConverter.getInstance();
+    private final transient PathMapper pathMapper = PathMapper.getInstance();
+    private final transient RequestParametersToArguments requestParametersToArguments = RequestParametersToArguments.getInstance();
+    private final transient InitializationService initializationService = InitializationService.getInstance();
+    private final transient  JsonToArgumentsConverter jsonToArgumentsConverter = JsonToArgumentsConverter.getInstance();
 
     @Override
     public void init() {
@@ -64,16 +64,12 @@ public class MainServlet extends HttpServlet {
                 requestDispatcher.forward(req, resp);
             } catch (ServletException | IOException e) {
                 LOGGER.error("Failed to forward to jsp '{}'. Error: {}", jspPage, e.getMessage());
-                e.printStackTrace();
-                throw new RuntimeException();
             }
         } else {
             try {
                 resp.getWriter().write(response.getBody());
             } catch (IOException e) {
                 LOGGER.error("Error writing response body: {}", e.getMessage());
-                e.printStackTrace();
-                throw new RuntimeException();
             }
         }
 
@@ -114,7 +110,6 @@ public class MainServlet extends HttpServlet {
                 resp.sendRedirect(redirectUrl);
             } catch (IOException e) {
                 LOGGER.error("Wrong path: {} !", redirectUrl);
-                throw new RuntimeException(e);
             }
         } else {
 
@@ -122,7 +117,6 @@ public class MainServlet extends HttpServlet {
                 resp.getWriter().write(body);
             } catch (IOException e) {
                 LOGGER.error("Error writing response body: {}", e.getMessage());
-                throw new RuntimeException();
             }
         }
     }

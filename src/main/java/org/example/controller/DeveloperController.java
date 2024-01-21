@@ -34,8 +34,8 @@ public class DeveloperController {
         pathMapper.addMapping(UrlPath.POST_DEVELOPERS_JSON, this::createDeveloperJson);
     }
 
-    public DeveloperController init(){
-        return instance;
+    public void init(){
+         DeveloperController.getInstance();
     }
 
     public Response getTablePage(Arguments arguments) {
