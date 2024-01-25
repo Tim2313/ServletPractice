@@ -8,18 +8,16 @@ import org.example.model.Developer;
 
 import org.junit.jupiter.api.Test;
 
-public class ArgumentToDeveloperConverterTest {
+class ArgumentToDeveloperConverterTest {
     private static final String FIRST_NAME = "Tima";
     private static final String SECOND_NAME = "Jav";
     private static final String AGE_STRING = "27";
     private static final int AGE_NUMBER = 27;
     private static final String PROGRAMMING_LANGUAGE = "Java";
-
-    private static final ArgumentToDeveloperConverter argumentToDeveloperConverter = new ArgumentToDeveloperConverter();
-
+    private final ArgumentToDeveloperConverter argumentToDeveloperConverter = new ArgumentToDeveloperConverter();
 
     @Test
-    public void shouldConvert() {
+    void shouldConvert() {
         Arguments arguments = new Arguments();
 
         arguments.getHashMap().put(RequestArgument.FIRSTNAME, FIRST_NAME);

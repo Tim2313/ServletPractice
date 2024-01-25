@@ -18,7 +18,7 @@ class RequestParametersToArgumentsTest {
     private HttpServletRequest httpServletRequest;
 
     @Test
-    public void shouldConvert() {
+    void shouldConvert() {
 
         Mockito.when(httpServletRequest.getParameter(RequestArgument.FIRSTNAME.getRequestArgument())).thenReturn("Jonh");
         Mockito.when(httpServletRequest.getParameter(RequestArgument.LASTNAME.getRequestArgument())).thenReturn("Jakik");
