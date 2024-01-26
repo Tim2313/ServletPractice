@@ -20,13 +20,31 @@ import java.util.List;
 
 public class DeveloperController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperController.class);
-    private final DeveloperService developerService = DeveloperService.getInstance();
-    private final JsonService jsonService = JsonService.getInstance();
-    private final ArgumentToDeveloperConverter argumentToDeveloperConverter = ArgumentToDeveloperConverter.getInstance();
+
+    private final JsonService jsonService;
+    private final ArgumentToDeveloperConverter argumentToDeveloperConverter;
+    private final DeveloperService developerService;
+
     private static DeveloperController instance;
 
     private DeveloperController() {
-        PathMapper pathMapper = PathMapper.getInstance();
+        this(
+                DeveloperService.getInstance(),
+                PathMapper.getInstance(),
+                ArgumentToDeveloperConverter.getInstance(),
+                JsonService.getInstance()
+        );
+    }
+
+    DeveloperController(
+            DeveloperService developerService,
+            PathMapper pathMapper,
+            ArgumentToDeveloperConverter argumentToDeveloperConverter,
+            JsonService jsonService
+    ) {
+        this.jsonService = jsonService;
+        this.argumentToDeveloperConverter = argumentToDeveloperConverter;
+        this.developerService = developerService;
 
         pathMapper.addMapping(UrlPath.GET_DEVELOPERS_JSON, this::getJsonPage);
         pathMapper.addMapping(UrlPath.GET_ALL_DEVELOPERS_HTML, this::getTablePage);
@@ -34,8 +52,8 @@ public class DeveloperController {
         pathMapper.addMapping(UrlPath.POST_DEVELOPERS_JSON, this::createDeveloperJson);
     }
 
-    public void init(){
-         DeveloperController.getInstance();
+    public void init() {
+        DeveloperController.getInstance();
     }
 
     public Response getTablePage(Arguments arguments) {
