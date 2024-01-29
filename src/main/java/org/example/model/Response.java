@@ -1,4 +1,5 @@
 package org.example.model;
+import org.example.constant.UrlPath;
 
 import java.util.List;
 
@@ -7,6 +8,7 @@ public class Response {
     private String body;
     private String contentType;
     private String jspPage;
+    private UrlPath redirect;
     private List<JspAttribute> jspAttributes;
 
     public Response() {
@@ -57,4 +59,25 @@ public class Response {
     public void setJspPage(String jspPage) {
         this.jspPage = jspPage;
     }
+
+    public UrlPath getRedirect() {
+        return redirect;
+    }
+
+    public void setRedirect(UrlPath redirect) {
+        this.redirect = redirect;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "code=" + code +
+                ", body='" + body + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", jspPage='" + jspPage + '\'' +
+                ", redirect=" + redirect +
+                ", jspAttributes=" + jspAttributes +
+                '}';
+    }
 }
+

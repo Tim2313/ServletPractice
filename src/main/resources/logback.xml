@@ -3,18 +3,32 @@
     <import class="ch.qos.logback.core.ConsoleAppender" />
 
     <property name="LOG_PATH" value="/opt/DeveloperApi/"/>
-    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    <property name="LOG_FILENAME_DATE_PATTERN"
+              value="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n-%d{yyyy-MM-dd}"/>
+    <property name="FILE_NAME_PATTERN" value="app.%d{yyyy-MM-dd_HH:00}.log"/>
+
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${PATTERN}</pattern>
+            <pattern>${LOG_FILENAME_DATE_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_PATH}/app.log</file>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${FILE_NAME_PATTERN}</fileNamePattern>
+
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${LOG_FILENAME_DATE_PATTERN}</pattern>
+        </layout>
+
         <encoder>
-            <pattern>${PATTERN}</pattern>
+            <pattern>${LOG_FILENAME_DATE_PATTERN}</pattern>
         </encoder>
     </appender>
 

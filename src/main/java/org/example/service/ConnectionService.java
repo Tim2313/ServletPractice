@@ -37,7 +37,6 @@ public class ConnectionService {
             LOGGER.info("Connection Established!");
         } catch (Exception e) {
             LOGGER.error("Check connection methods!");
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
 

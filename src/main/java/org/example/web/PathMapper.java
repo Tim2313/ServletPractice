@@ -1,39 +1,36 @@
 package org.example.web;
 
-import org.example.constant.RequestArgument;
-import org.example.controller.DeveloperController;
-import org.example.controller.MainController;
+import org.example.constant.*;
 import org.example.model.Arguments;
 import org.example.model.Response;
-import org.example.constant.UrlPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 
 public class PathMapper {
-
-    private static final Map<UrlPath, Function<Arguments, Response>> PAGE_MAP = new HashMap<>();
-
-    private final MainController mainController = MainController.getInstance();
+    private static final Logger LOGGER = LoggerFactory.getLogger(PathMapper.class);
+    private static final Map<UrlPath, Function<Arguments, Response>> PAGE_MAP = new EnumMap<>(UrlPath.class);
     private static PathMapper instance;
 
-    public PathMapper() {
-        DeveloperController developerController = DeveloperController.getInstance();
-        PAGE_MAP.put(UrlPath.JSON, developerController::getJsonType);
-        PAGE_MAP.put(UrlPath.HTML, developerController::getTableType);
+    private PathMapper() {
+    }
 
-        MainController mainController = MainController.getInstance();
-        PAGE_MAP.put(UrlPath.HELLO, mainController::getHelloType);
+    public void addMapping(UrlPath url, Function<Arguments, Response> method) {
+        PAGE_MAP.put(url, method);
     }
 
     public Response getResponse(Arguments arguments) {
-        String pathWithWarName = arguments.getHashMap().get(RequestArgument.PATH);
-        UrlPath finalPath = UrlPath.getBySymbol(pathWithWarName);
+        String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH);
+        String method = arguments.getHashMap().get(RequestArgument.HTTP_METHOD);
+        UrlPath finalPath = UrlPath.getByFullUrl(pathWithWarName, method);
         if (PAGE_MAP.containsKey(finalPath)) {
             return PAGE_MAP.get(finalPath).apply(arguments);
         }
-        return mainController.getNotFoundResponseType(arguments);
+        LOGGER.info("The path doesn't contain the PAGE_MAP: {}", finalPath);
+        return PAGE_MAP.get(UrlPath.NOT_FOUND_HTML).apply(arguments);
     }
 
     public static PathMapper getInstance() {
