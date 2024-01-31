@@ -18,8 +18,16 @@ public class DeveloperService {
     public static final String COLUMN_AGE = "age";
     public static final String COLUMN_PROGRAMMING_LANGUAGE = "programmingLanguage";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperService.class);
-    private final ConnectionService connectionService = ConnectionService.getInstance();
+    private final ConnectionService connectionService;
     private static DeveloperService instance;
+
+    public DeveloperService(ConnectionService connectionService) {
+        this.connectionService = connectionService;
+    }
+
+    private DeveloperService () {
+        this(ConnectionService.getInstance());
+    }
 
     public List<Developer> getDevelopers() {
         Connection connection = connectionService.getConnection();
@@ -47,7 +55,6 @@ public class DeveloperService {
             LOGGER.info("{} developers have been retrieved from the database.", developers.size());
         } catch (SQLException ex) {
             LOGGER.error("Unable to retrieve developers from DB");
-            throw new RuntimeException(ex);
         }
         return developers;
     }
@@ -67,7 +74,6 @@ public class DeveloperService {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("Error occurs in sql query: {}", e.getErrorCode());
-            throw new RuntimeException(e);
         }
     }
 
