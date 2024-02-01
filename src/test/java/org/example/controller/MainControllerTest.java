@@ -4,6 +4,7 @@ import org.example.constant.ContextType;
 import org.example.constant.JspPage;
 import org.example.model.Arguments;
 import org.example.model.Response;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,10 +13,16 @@ class MainControllerTest {
 
     private final MainController mainController = MainController.getInstance();
 
+    private static Arguments arguments;
+
+    @BeforeAll
+    static void setup() {
+        arguments = new Arguments();
+    }
+
     @Test
     void shouldGetHelloPage() {
-        Arguments args = new Arguments();
-        Response response = mainController.getHelloPage(args);
+        Response response = mainController.getHelloPage(arguments);
 
         assertEquals(200, response.getCode());
         assertEquals(ContextType.HTML.getContextType(), response.getContentType());
@@ -24,8 +31,7 @@ class MainControllerTest {
 
     @Test
     void shouldGetNotFoundResponsePage() {
-        Arguments args = new Arguments();
-        Response response = mainController.getNotFoundResponsePage(args);
+        Response response = mainController.getNotFoundResponsePage(arguments);
 
         assertEquals(404, response.getCode());
         assertEquals(ContextType.HTML.getContextType(), response.getContentType());
@@ -34,8 +40,7 @@ class MainControllerTest {
 
     @Test
     void shouldGetCreationFormPage() {
-        Arguments args = new Arguments();
-        Response response = mainController.getCreationFormPage(args);
+        Response response = mainController.getCreationFormPage(arguments);
 
         assertEquals(200, response.getCode());
         assertEquals(ContextType.HTML.getContextType(), response.getContentType());

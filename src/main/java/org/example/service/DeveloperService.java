@@ -12,11 +12,6 @@ public class DeveloperService {
 
     private static final String GET_DEVELOPERS = "select id, firstName, lastName, age, programmingLanguage from developer";
     private static final String ADD_DEVELOPER = "INSERT INTO developer(firstName, lastName, age, programmingLanguage) VALUES (?, ?, ?, ?)";
-    private static final String COLUMN_ID = "id";
-    public static final String COLUMN_FIRST_NAME = "firstName";
-    public static final String COLUMN_LASTNAME = "lastName";
-    public static final String COLUMN_AGE = "age";
-    public static final String COLUMN_PROGRAMMING_LANGUAGE = "programmingLanguage";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperService.class);
     private final ConnectionService connectionService;
     private static DeveloperService instance;
@@ -37,16 +32,16 @@ public class DeveloperService {
                 ResultSet resultSet = statement.executeQuery(GET_DEVELOPERS)
         ) {
             while (resultSet.next()) {
-                int id = resultSet.getInt(COLUMN_ID);
-                String firstname = resultSet.getString(COLUMN_FIRST_NAME);
-                String lastname = resultSet.getString(COLUMN_LASTNAME);
-                int age = resultSet.getInt(COLUMN_AGE);
-                String programmingLanguage = resultSet.getString(COLUMN_PROGRAMMING_LANGUAGE);
+                int id = resultSet.getInt(Developer.COLUMN_ID);
+                String firstname = resultSet.getString(Developer.COLUMN_FIRST_NAME);
+                String lastname = resultSet.getString(Developer.COLUMN_LAST_NAME);
+                int age = resultSet.getInt(Developer.COLUMN_AGE);
+                String programmingLanguage = resultSet.getString(Developer.COLUMN_PROGRAMMING_LANGUAGE);
 
                 Developer developer = new Developer();
                 developer.setId(id);
                 developer.setFirstName(firstname);
-                developer.setSecondName(lastname);
+                developer.setLastName(lastname);
                 developer.setAge(age);
                 developer.setProgrammingLanguage(programmingLanguage);
 
@@ -67,7 +62,7 @@ public class DeveloperService {
             preparedStatement = connection.prepareStatement(ADD_DEVELOPER);
 
             preparedStatement.setString(1, developer.getFirstName());
-            preparedStatement.setString(2, developer.getSecondName());
+            preparedStatement.setString(2, developer.getLastName());
             preparedStatement.setInt(3, developer.getAge());
             preparedStatement.setString(4, developer.getProgrammingLanguage());
 

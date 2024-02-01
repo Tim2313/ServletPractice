@@ -32,17 +32,17 @@ public class JsonToArgumentsConverter {
             throw new RuntimeException();
         }
 
-            String firstName = jsonNode.get("firstName").asText();
-            arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);
+        String firstName = jsonNode.get("firstName").asText();
+        arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);
 
-            String secondName = jsonNode.get("secondName").asText();
-            arguments.getHashMap().put(RequestArgument.LASTNAME, secondName);
+        String lastName = jsonNode.get("lastName").asText();
+        arguments.getHashMap().put(RequestArgument.LASTNAME, lastName);
 
-            String age = jsonNode.get("age").asText();
-            arguments.getHashMap().put(RequestArgument.AGE, age);
+        String age = jsonNode.get("age").asText();
+        arguments.getHashMap().put(RequestArgument.AGE, age);
 
-            String programmingLanguage = jsonNode.get("programmingLanguage").asText();
-            arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, programmingLanguage);
+        String programmingLanguage = jsonNode.get("programmingLanguage").asText();
+        arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, programmingLanguage);
 
 
         return arguments;

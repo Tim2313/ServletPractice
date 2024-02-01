@@ -1,8 +1,6 @@
 package org.example.service;
 
-import org.checkerframework.checker.units.qual.A;
 import org.example.model.Developer;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.example.model.Developer.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -32,15 +31,10 @@ class DeveloperServiceTest {
             " lastName," +
             " age," +
             " programmingLanguage from developer";
-    private static final String COLUMN_ID = "id";
-    public static final String COLUMN_FIRST_NAME = "firstName";
-    public static final String COLUMN_LASTNAME = "lastName";
-    public static final String COLUMN_AGE = "age";
-    public static final String COLUMN_PROGRAMMING_LANGUAGE = "programmingLanguage";
 
     private static final int ID = 1;
     private static final String FIRST_NAME = "Tima";
-    private static final String SECOND_NAME = "Kilkas";
+    private static final String LAST_NAME = "Kilkas";
     private static final int AGE = 23;
     private static final String PROGRAMMING_LANGUAGE = "Java";
 
@@ -70,7 +64,7 @@ class DeveloperServiceTest {
         developer = new Developer();
         developer.setId(ID);
         developer.setFirstName(FIRST_NAME);
-        developer.setSecondName(SECOND_NAME);
+        developer.setLastName(LAST_NAME);
         developer.setAge(AGE);
         developer.setProgrammingLanguage(PROGRAMMING_LANGUAGE);
 
@@ -86,7 +80,7 @@ class DeveloperServiceTest {
 
         when(resultSet.getInt(COLUMN_ID)).thenReturn(ID);
         when(resultSet.getString(COLUMN_FIRST_NAME)).thenReturn(FIRST_NAME);
-        when(resultSet.getString(COLUMN_LASTNAME)).thenReturn(SECOND_NAME);
+        when(resultSet.getString(COLUMN_LAST_NAME)).thenReturn(LAST_NAME);
         when(resultSet.getInt(COLUMN_AGE)).thenReturn(AGE);
         when(resultSet.getString(COLUMN_PROGRAMMING_LANGUAGE)).thenReturn(PROGRAMMING_LANGUAGE);
 
@@ -107,7 +101,7 @@ class DeveloperServiceTest {
         testInstance.addDeveloper(developer);
 
         verify(preparedStatement).setString(1, FIRST_NAME);
-        verify(preparedStatement).setString(2, SECOND_NAME);
+        verify(preparedStatement).setString(2, LAST_NAME);
         verify(preparedStatement).setInt(3, AGE);
         verify(preparedStatement).setString(4, PROGRAMMING_LANGUAGE);
 

@@ -9,9 +9,12 @@ import org.example.model.Response;
 import org.example.service.DeveloperService;
 import org.example.service.JsonService;
 import org.example.web.HttpMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Incubating;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -37,17 +40,21 @@ class DeveloperControllerTest {
     @Mock
     private JsonService jsonService;
 
+    @InjectMocks
     private DeveloperController testInstance;
 
-    @BeforeEach
-    void init() {
-        testInstance = new DeveloperController(developerService, httpMapper, argumentToDeveloperConverter, jsonService);
+    private static Arguments arguments;
+
+    private static Developer developer;
+
+    @BeforeAll
+    static void setup() {
+        arguments = new Arguments();
+        developer = new Developer();
     }
 
     @Test
     void shouldCreateDeveloperJson() {
-        Arguments arguments = new Arguments();
-        Developer developer = new Developer();
         when(argumentToDeveloperConverter.convert(arguments)).thenReturn(developer);
 
         Response actual = testInstance.createDeveloperJson(arguments);
@@ -60,8 +67,6 @@ class DeveloperControllerTest {
 
     @Test
     void shouldCreateDeveloperHtml() {
-        Arguments arguments = new Arguments();
-        Developer developer = new Developer();
         when(argumentToDeveloperConverter.convert(arguments)).thenReturn(developer);
 
         Response actual = testInstance.createDeveloperHtml(arguments);
@@ -73,9 +78,6 @@ class DeveloperControllerTest {
 
     @Test
     void shouldGetTablePage() {
-        Arguments arguments = new Arguments();
-        Developer developer = new Developer();
-
         List<Developer> developersTest = new LinkedList<>();
         developersTest.add(developer);
 
@@ -90,10 +92,8 @@ class DeveloperControllerTest {
 
     @Test
     void shouldGetJsonPage() {
-        Arguments arguments = new Arguments();
-        Developer developer = new Developer();
         developer.setFirstName("Vlad");
-        developer.setSecondName("Kikul");
+        developer.setLastName("Kikul");
         developer.setAge(23);
         developer.setProgrammingLanguage("Java");
 

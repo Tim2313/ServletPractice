@@ -59,7 +59,7 @@
 
 
           <label for="<%= RequestArgument.LASTNAME.getRequestArgument() %>">
-            <span>Second Name: </span>
+            <span>Last Name: </span>
           </label>
           <input type="text" name="<%= RequestArgument.LASTNAME.getRequestArgument() %>" required />
 

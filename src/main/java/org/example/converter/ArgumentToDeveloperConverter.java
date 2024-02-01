@@ -8,7 +8,7 @@ public class ArgumentToDeveloperConverter {
 
     private static ArgumentToDeveloperConverter instance;
 
-    private ArgumentToDeveloperConverter(){
+    private ArgumentToDeveloperConverter() {
     }
 
     public Developer convert(Arguments arguments) {
@@ -18,8 +18,8 @@ public class ArgumentToDeveloperConverter {
         String firstName = arguments.getHashMap().get(RequestArgument.FIRSTNAME);
         developer.setFirstName(firstName);
 
-        String secondName = arguments.getHashMap().get(RequestArgument.LASTNAME);
-        developer.setSecondName(secondName);
+        String lastName = arguments.getHashMap().get(RequestArgument.LASTNAME);
+        developer.setLastName(lastName);
 
         String inputAge = arguments.getHashMap().get(RequestArgument.AGE);
         int age = Integer.parseInt(inputAge);

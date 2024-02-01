@@ -33,7 +33,7 @@ class JsonArgumentsConverterTest {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.createObjectNode()
                 .put("firstName", "John")
-                .put("secondName", "Doe")
+                .put("lastName", "Doe")
                 .put("age", "30")
                 .put("programmingLanguage", "Java");
 

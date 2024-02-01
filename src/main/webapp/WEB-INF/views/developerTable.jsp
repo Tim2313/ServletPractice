@@ -18,17 +18,17 @@
     <table>
       <h2>Developers Table</h2>
       <tr>
-        <th><%= Developer.COLUMN_NAME_ID %></th>
-        <th><%= Developer.COLUMN_NAME_FIRST_NAME %></th>
-        <th><%= Developer.COLUMN_NAME_SECOND_NAME %></th>
-        <th><%= Developer.COLUMN_NAME_AGE %></th>
-        <th><%= Developer.COLUMN_NAME_PROGRAMMING_LANGUAGE %></th>
+        <th><%= Developer.COLUMN_ID %></th>
+        <th><%= Developer.COLUMN_FIRST_NAME %></th>
+        <th><%= Developer.COLUMN_LAST_NAME %></th>
+        <th><%= Developer.COLUMN_AGE %></th>
+        <th><%= Developer.COLUMN_PROGRAMMING_LANGUAGE %></th>
       </tr>
       <c:forEach var="developer" items="${developerList}">
         <tr>
           <td>${developer.id}</td>
           <td>${developer.firstName}</td>
-          <td>${developer.secondName}</td>
+          <td>${developer.lastName}</td>
           <td>${developer.age}</td>
           <td>${developer.programmingLanguage}</td>
         </tr>

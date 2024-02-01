@@ -11,7 +11,6 @@ public class JsonService {
 
     private static final Gson GSON = new Gson();
 
-
     public String getDevelopers(List<Developer> developerList) {
         return GSON.toJson(developerList);
     }
