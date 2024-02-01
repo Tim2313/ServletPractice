@@ -7,6 +7,10 @@ import org.example.model.Developer;
 public class ArgumentToDeveloperConverter {
 
     private static ArgumentToDeveloperConverter instance;
+
+    private ArgumentToDeveloperConverter(){
+    }
+
     public Developer convert(Arguments arguments) {
 
         Developer developer = new Developer();

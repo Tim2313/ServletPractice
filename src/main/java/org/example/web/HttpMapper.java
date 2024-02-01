@@ -10,32 +10,36 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class PathMapper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PathMapper.class);
-    private static final Map<UrlPath, Function<Arguments, Response>> PAGE_MAP = new EnumMap<>(UrlPath.class);
-    private static PathMapper instance;
+public class HttpMapper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpMapper.class);
+    private static final Map<HttpMapping, Function<Arguments, Response>> PAGE_MAP = new EnumMap<>(HttpMapping.class);
+    private static HttpMapper instance;
 
-    private PathMapper() {
+    private HttpMapper() {
     }
 
-    public void addMapping(UrlPath url, Function<Arguments, Response> method) {
+    public void clearMapping() {
+        PAGE_MAP.clear();
+    }
+
+    public void addMapping(HttpMapping url, Function<Arguments, Response> method) {
         PAGE_MAP.put(url, method);
     }
 
     public Response getResponse(Arguments arguments) {
         String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH);
         String method = arguments.getHashMap().get(RequestArgument.HTTP_METHOD);
-        UrlPath finalPath = UrlPath.getByFullUrl(pathWithWarName, method);
+        HttpMapping finalPath = HttpMapping.getByFullUrl(pathWithWarName, method);
         if (PAGE_MAP.containsKey(finalPath)) {
             return PAGE_MAP.get(finalPath).apply(arguments);
         }
         LOGGER.info("The path doesn't contain the PAGE_MAP: {}", finalPath);
-        return PAGE_MAP.get(UrlPath.NOT_FOUND_HTML).apply(arguments);
+        return PAGE_MAP.get(HttpMapping.NOT_FOUND_HTML).apply(arguments);
     }
 
-    public static PathMapper getInstance() {
+    public static HttpMapper getInstance() {
         if (instance == null) {
-            instance = new PathMapper();
+            instance = new HttpMapper();
         }
         return instance;
     }

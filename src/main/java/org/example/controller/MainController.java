@@ -3,10 +3,10 @@ package org.example.controller;
 import org.example.constant.ContextType;
 import org.example.constant.JspPage;
 import org.example.constant.ResponseCode;
-import org.example.constant.UrlPath;
+import org.example.constant.HttpMapping;
 import org.example.model.Arguments;
 import org.example.model.Response;
-import org.example.web.PathMapper;
+import org.example.web.HttpMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +15,11 @@ public class MainController {
     private static MainController instance;
 
     private MainController() {
-        PathMapper pathMapper = PathMapper.getInstance();
+        HttpMapper httpMapper = HttpMapper.getInstance();
 
-        pathMapper.addMapping(UrlPath.GET_DEVELOPERS_FORM_HTML, this::getCreationFormPage);
-        pathMapper.addMapping(UrlPath.GET_GREETINGS_HTML, this::getHelloPage);
-        pathMapper.addMapping(UrlPath.NOT_FOUND_HTML, this::getNotFoundResponsePage);
+        httpMapper.addMapping(HttpMapping.GET_DEVELOPERS_FORM_HTML, this::getCreationFormPage);
+        httpMapper.addMapping(HttpMapping.GET_GREETINGS_HTML, this::getHelloPage);
+        httpMapper.addMapping(HttpMapping.NOT_FOUND_HTML, this::getNotFoundResponsePage);
     }
 
     public void init(){

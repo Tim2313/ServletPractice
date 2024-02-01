@@ -14,7 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class RequestParametersToArgumentsTest {
 
     @Mock
-    HttpServletRequest httpServletRequest;
+    private HttpServletRequest httpServletRequest;
+
+    private final RequestParametersToArguments testInstance = RequestParametersToArguments.getInstance();
 
     @Test
     void shouldConvert() {
@@ -24,9 +26,7 @@ class RequestParametersToArgumentsTest {
         Mockito.when(httpServletRequest.getParameter(RequestArgument.AGE.getRequestArgument())).thenReturn("23");
         Mockito.when(httpServletRequest.getParameter(RequestArgument.PROGRAMMING_LANGUAGE.getRequestArgument())).thenReturn("Java");
 
-        RequestParametersToArguments requestParametersToArguments = new RequestParametersToArguments();
-
-        Arguments arguments = requestParametersToArguments.convert(httpServletRequest);
+        Arguments arguments = testInstance.convert(httpServletRequest);
 
         Assertions.assertEquals("Jonh", arguments.getHashMap().get(RequestArgument.FIRSTNAME));
         Assertions.assertEquals("Jakik", arguments.getHashMap().get(RequestArgument.LASTNAME));

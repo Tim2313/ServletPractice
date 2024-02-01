@@ -5,14 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.constant.RequestArgument;
 import org.example.model.Arguments;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class JsonToArgumentsConverter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JsonToArgumentsConverter.class);
     private static JsonToArgumentsConverter instance;
+
+    private JsonToArgumentsConverter() {
+    }
 
     public Arguments convert(HttpServletRequest req) {
         String requestURI = req.getRequestURI();

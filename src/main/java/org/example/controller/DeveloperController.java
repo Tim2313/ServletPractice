@@ -3,7 +3,7 @@ package org.example.controller;
 import org.example.constant.ContextType;
 import org.example.constant.JspPage;
 import org.example.constant.ResponseCode;
-import org.example.constant.UrlPath;
+import org.example.constant.HttpMapping;
 import org.example.converter.ArgumentToDeveloperConverter;
 import org.example.model.Arguments;
 import org.example.model.Developer;
@@ -11,7 +11,7 @@ import org.example.model.JspAttribute;
 import org.example.model.Response;
 import org.example.service.DeveloperService;
 import org.example.service.JsonService;
-import org.example.web.PathMapper;
+import org.example.web.HttpMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +28,7 @@ public class DeveloperController {
 
     public DeveloperController(
             DeveloperService developerService,
-            PathMapper pathMapper,
+            HttpMapper httpMapper,
             ArgumentToDeveloperConverter argumentToDeveloperConverter,
             JsonService jsonService
     ) {
@@ -36,15 +36,15 @@ public class DeveloperController {
         this.argumentToDeveloperConverter = argumentToDeveloperConverter;
         this.developerService = developerService;
 
-        pathMapper.addMapping(UrlPath.GET_DEVELOPERS_JSON, this::getJsonPage);
-        pathMapper.addMapping(UrlPath.GET_ALL_DEVELOPERS_HTML, this::getTablePage);
-        pathMapper.addMapping(UrlPath.POST_DEVELOPERS_HTML, this::createDeveloperHtml);
-        pathMapper.addMapping(UrlPath.POST_DEVELOPERS_JSON, this::createDeveloperJson);
+        httpMapper.addMapping(HttpMapping.GET_DEVELOPERS_REST, this::getJsonPage);
+        httpMapper.addMapping(HttpMapping.GET_ALL_DEVELOPERS_HTML, this::getTablePage);
+        httpMapper.addMapping(HttpMapping.POST_DEVELOPERS_HTML, this::createDeveloperHtml);
+        httpMapper.addMapping(HttpMapping.POST_DEVELOPERS_REST, this::createDeveloperJson);
     }
 
     private DeveloperController() {
         this(DeveloperService.getInstance(),
-                PathMapper.getInstance(),
+                HttpMapper.getInstance(),
                 ArgumentToDeveloperConverter.getInstance(),
                 JsonService.getInstance());
     }
@@ -101,7 +101,7 @@ public class DeveloperController {
 
         response.setCode(ResponseCode.HTTP_OK.getResponseCodes());
         response.setContentType(ContextType.HTML.getContextType());
-        response.setRedirect(UrlPath.GET_DEVELOPERS_FORM_HTML);
+        response.setRedirect(HttpMapping.GET_DEVELOPERS_FORM_HTML);
 
         LOGGER.info("Developer is created!");
         return response;

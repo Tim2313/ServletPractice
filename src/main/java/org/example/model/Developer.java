@@ -1,4 +1,7 @@
 package org.example.model;
+
+import java.util.Objects;
+
 public class Developer {
 
     public static final String COLUMN_NAME_ID = "Id";
@@ -73,5 +76,18 @@ public class Developer {
                 ", age=" + age +
                 ", programmingLanguage='" + programmingLanguage + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Developer developer = (Developer) o;
+        return id == developer.id && age == developer.age && Objects.equals(firstName, developer.firstName) && Objects.equals(secondName, developer.secondName) && Objects.equals(programmingLanguage, developer.programmingLanguage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, secondName, age, programmingLanguage);
     }
 }

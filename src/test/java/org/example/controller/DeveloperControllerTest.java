@@ -8,7 +8,7 @@ import org.example.model.Developer;
 import org.example.model.Response;
 import org.example.service.DeveloperService;
 import org.example.service.JsonService;
-import org.example.web.PathMapper;
+import org.example.web.HttpMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +31,7 @@ class DeveloperControllerTest {
     @Mock
     private DeveloperService developerService;
     @Mock
-    private PathMapper pathMapper;
+    private HttpMapper httpMapper;
     @Mock
     private ArgumentToDeveloperConverter argumentToDeveloperConverter;
     @Mock
@@ -41,7 +41,7 @@ class DeveloperControllerTest {
 
     @BeforeEach
     void init() {
-        testInstance = new DeveloperController(developerService, pathMapper, argumentToDeveloperConverter, jsonService);
+        testInstance = new DeveloperController(developerService, httpMapper, argumentToDeveloperConverter, jsonService);
     }
 
     @Test

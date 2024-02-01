@@ -1,5 +1,5 @@
 package org.example.model;
-import org.example.constant.UrlPath;
+import org.example.constant.HttpMapping;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class Response {
     private String body;
     private String contentType;
     private String jspPage;
-    private UrlPath redirect;
+    private HttpMapping redirect;
     private List<JspAttribute> jspAttributes;
 
     public Response() {
@@ -60,11 +60,11 @@ public class Response {
         this.jspPage = jspPage;
     }
 
-    public UrlPath getRedirect() {
+    public HttpMapping getRedirect() {
         return redirect;
     }
 
-    public void setRedirect(UrlPath redirect) {
+    public void setRedirect(HttpMapping redirect) {
         this.redirect = redirect;
     }
 

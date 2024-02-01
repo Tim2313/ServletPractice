@@ -13,7 +13,7 @@ class ArgumentToDeveloperConverterTest {
     private static final String AGE_STRING = "27";
     private static final int AGE_NUMBER = 27;
     private static final String PROGRAMMING_LANGUAGE = "Java";
-    private final ArgumentToDeveloperConverter argumentToDeveloperConverter = new ArgumentToDeveloperConverter();
+    private final ArgumentToDeveloperConverter testInstance = ArgumentToDeveloperConverter.getInstance();
 
     @Test
     void shouldConvert() {
@@ -24,7 +24,7 @@ class ArgumentToDeveloperConverterTest {
         arguments.getHashMap().put(RequestArgument.AGE, AGE_STRING);
         arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, PROGRAMMING_LANGUAGE);
 
-        Developer actualDeveloper = argumentToDeveloperConverter.convert(arguments);
+        Developer actualDeveloper = testInstance.convert(arguments);
 
         Assertions.assertThat(actualDeveloper.getFirstName()).isEqualTo(FIRST_NAME);
         Assertions.assertThat(actualDeveloper.getSecondName()).isEqualTo(SECOND_NAME);

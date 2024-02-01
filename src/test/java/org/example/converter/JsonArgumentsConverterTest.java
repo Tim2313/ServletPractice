@@ -21,9 +21,9 @@ import static org.mockito.Mockito.when;
 class JsonArgumentsConverterTest {
 
     @Mock
-    HttpServletRequest httpServletRequest;
-    @Mock
-    JsonToArgumentsConverter jsonToArgumentsConverter;
+    private HttpServletRequest httpServletRequest;
+
+    private final JsonToArgumentsConverter testInstance = JsonToArgumentsConverter.getInstance();
 
     @Test
     void shouldConvert() {
@@ -45,9 +45,7 @@ class JsonArgumentsConverterTest {
             throw new RuntimeException(e);
         }
 
-        jsonToArgumentsConverter = JsonToArgumentsConverter.getInstance();
-
-        Arguments argumentsActual = jsonToArgumentsConverter.convert(httpServletRequest);
+        Arguments argumentsActual = testInstance.convert(httpServletRequest);
 
         assertEquals("/example", argumentsActual.getHashMap().get(RequestArgument.HTTP_PATH));
         assertEquals("POST", argumentsActual.getHashMap().get(RequestArgument.HTTP_METHOD));

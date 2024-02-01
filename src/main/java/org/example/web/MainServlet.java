@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.constant.RequestArgument;
-import org.example.constant.UrlPath;
+import org.example.constant.HttpMapping;
 import org.example.converter.JsonToArgumentsConverter;
 import org.example.converter.RequestParametersToArguments;
 import org.example.model.Arguments;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainServlet.class);
-    private final transient PathMapper pathMapper = PathMapper.getInstance();
+    private final transient HttpMapper httpMapper = HttpMapper.getInstance();
     private final transient RequestParametersToArguments requestParametersToArguments = RequestParametersToArguments.getInstance();
     private final transient InitializationService initializationService = InitializationService.getInstance();
     private final transient  JsonToArgumentsConverter jsonToArgumentsConverter = JsonToArgumentsConverter.getInstance();
@@ -42,7 +42,7 @@ public class MainServlet extends HttpServlet {
         arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
         arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
-        Response response = pathMapper.getResponse(arguments);
+        Response response = httpMapper.getResponse(arguments);
 
         String contentType = response.getContentType();
         resp.setContentType(contentType);
@@ -86,15 +86,15 @@ public class MainServlet extends HttpServlet {
 
         Arguments arguments = new Arguments();
 
-        if (requestURI.equals(UrlPath.POST_DEVELOPERS_JSON.getWarUrl())) {
+        if (requestURI.equals(HttpMapping.POST_DEVELOPERS_REST.getWarUrl())) {
             arguments = jsonToArgumentsConverter.convert(req);
         }
 
-        if (requestURI.equals(UrlPath.POST_DEVELOPERS_HTML.getWarUrl())) {
+        if (requestURI.equals(HttpMapping.POST_DEVELOPERS_HTML.getWarUrl())) {
             arguments = requestParametersToArguments.convert(req);
         }
 
-        Response response = pathMapper.getResponse(arguments);
+        Response response = httpMapper.getResponse(arguments);
 
         String body = response.getBody();
 

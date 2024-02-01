@@ -5,38 +5,34 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import static org.example.constant.HttpMethod.*;
+import static org.example.constant.HttpPath.*;
 
-public enum UrlPath {
-    GET_ALL_DEVELOPERS_HTML("/html/allDevelopers", "GET"),
-
-    GET_GREETINGS_HTML("/html/greetings", "GET"),
-
-    NOT_FOUND_HTML("/html/notFound", "GET"),
-
-    GET_DEVELOPERS_FORM_HTML("/html/developersForm", "GET"),
-
-    GET_DEVELOPERS_JSON("/api/developersJson", "GET"),
-
-    POST_DEVELOPERS_HTML("/html/developers", "POST"),
-
-    POST_DEVELOPERS_JSON("/api/developers", "POST");
+public enum HttpMapping {
+    GET_ALL_DEVELOPERS_HTML(HTML_ALL_DEVELOPERS, GET),
+    GET_GREETINGS_HTML(HTML_GREETINGS, GET),
+    NOT_FOUND_HTML(HTML_NOT_FOUND, GET),
+    GET_DEVELOPERS_FORM_HTML(HTML_DEVELOPERS_FORM, GET),
+    POST_DEVELOPERS_HTML(HTML_DEVELOPERS, POST),
+    GET_DEVELOPERS_REST(API_DEVELOPERS, GET),
+    POST_DEVELOPERS_REST(API_DEVELOPERS, POST);
     private final String url;
     private final String method;
 
     private static final String WAR_NAME = "/DeveloperApi";
-    private static final Logger LOGGER = LoggerFactory.getLogger(UrlPath.class);
-    private static final Map<String, UrlPath> URL_PATTERN_STRING_MAP = new HashMap<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpMapping.class);
+    private static final Map<String, HttpMapping> URL_PATTERN_STRING_MAP = new HashMap<>();
 
     static {
         URL_PATTERN_STRING_MAP.put(GET_GREETINGS_HTML.getMethodUrl(), GET_GREETINGS_HTML);
         URL_PATTERN_STRING_MAP.put(GET_ALL_DEVELOPERS_HTML.getMethodUrl(), GET_ALL_DEVELOPERS_HTML);
         URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_FORM_HTML.getMethodUrl(), GET_DEVELOPERS_FORM_HTML);
-        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_JSON.getMethodUrl(), POST_DEVELOPERS_JSON);
-        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_JSON.getMethodUrl(), GET_DEVELOPERS_JSON);
+        URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_REST.getMethodUrl(), POST_DEVELOPERS_REST);
+        URL_PATTERN_STRING_MAP.put(GET_DEVELOPERS_REST.getMethodUrl(), GET_DEVELOPERS_REST);
         URL_PATTERN_STRING_MAP.put(POST_DEVELOPERS_HTML.getMethodUrl(), POST_DEVELOPERS_HTML);
     }
 
-    UrlPath(String url, String method) {
+    HttpMapping(String url, String method) {
         this.method = method;
         this.url = url;
     }
@@ -66,7 +62,7 @@ public enum UrlPath {
      * @param url - url string to parse
      * @return UrlPath enum value
      */
-    public static UrlPath getByFullUrl(String url, String method) {
+    public static HttpMapping getByFullUrl(String url, String method) {
         String path = url.replace(WAR_NAME, "");
 
         String format = "%s%s";

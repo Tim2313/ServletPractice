@@ -7,6 +7,9 @@ import org.example.model.Arguments;
 public class RequestParametersToArguments {
     private static RequestParametersToArguments instance;
 
+    private RequestParametersToArguments() {
+    }
+
     public Arguments convert(HttpServletRequest req) {
         String requestURI = req.getRequestURI();
         String requestHttpMethod = req.getMethod();
