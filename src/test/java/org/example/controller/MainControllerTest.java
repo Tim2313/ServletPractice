@@ -6,12 +6,13 @@ import org.example.model.Arguments;
 import org.example.model.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MainControllerTest {
 
-    private final MainController mainController = MainController.getInstance();
+    private final MainController testInstance = MainController.getInstance();
 
     private static Arguments arguments;
 
@@ -22,28 +23,28 @@ class MainControllerTest {
 
     @Test
     void shouldGetHelloPage() {
-        Response response = mainController.getHelloPage(arguments);
+        Response actual = testInstance.getHelloPage(arguments);
 
-        assertEquals(200, response.getCode());
-        assertEquals(ContextType.HTML.getContextType(), response.getContentType());
-        assertEquals(JspPage.HELLO_PAGE.getFilePath(), response.getJspPage());
+        assertThat(actual.getCode()).isEqualTo(200);
+        assertEquals(ContextType.HTML.getContextType(), actual.getContentType());
+        assertEquals(JspPage.HELLO_PAGE.getFilePath(), actual.getJspPage());
     }
 
     @Test
     void shouldGetNotFoundResponsePage() {
-        Response response = mainController.getNotFoundResponsePage(arguments);
+        Response actual = testInstance.getNotFoundResponsePage(arguments);
 
-        assertEquals(404, response.getCode());
-        assertEquals(ContextType.HTML.getContextType(), response.getContentType());
-        assertEquals(JspPage.NOT_FOUND_PAGE.getFilePath(), response.getJspPage());
+        assertThat(actual.getCode()).isEqualTo(404);
+        assertEquals(ContextType.HTML.getContextType(), actual.getContentType());
+        assertEquals(JspPage.NOT_FOUND_PAGE.getFilePath(), actual.getJspPage());
     }
 
     @Test
     void shouldGetCreationFormPage() {
-        Response response = mainController.getCreationFormPage(arguments);
+        Response actual = testInstance.getCreationFormPage(arguments);
 
-        assertEquals(200, response.getCode());
-        assertEquals(ContextType.HTML.getContextType(), response.getContentType());
-        assertEquals(JspPage.CREATION_FORM_PAGE.getFilePath(), response.getJspPage());
+        assertThat(actual.getCode()).isEqualTo(200);
+        assertThat(ContextType.HTML.getContextType()).isEqualTo(actual.getContentType());
+        assertThat(JspPage.CREATION_FORM_PAGE.getFilePath()).isEqualTo(actual.getJspPage());
     }
 }

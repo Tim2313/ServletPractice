@@ -14,12 +14,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.mockito.Mockito.when;
+
+import static org.example.model.Developer.*;
 
 @ExtendWith(MockitoExtension.class)
 class JsonArgumentsConverterTest {
 
+    private static final String HTTP_PATH = "/example";
+    private static final String METHOD = "POST";
+    private static final String FIRST_NAME = "John";
+    private static final String LAST_NAME = "Doe";
+    private static final String AGE = "30";
+    private static final String PROGRAMMING_LANGUAGE = "Java";
     @Mock
     private HttpServletRequest httpServletRequest;
 
@@ -27,15 +36,15 @@ class JsonArgumentsConverterTest {
 
     @Test
     void shouldConvert() {
-        when(httpServletRequest.getRequestURI()).thenReturn("/example");
-        when(httpServletRequest.getMethod()).thenReturn("POST");
+        when(httpServletRequest.getRequestURI()).thenReturn(HTTP_PATH);
+        when(httpServletRequest.getMethod()).thenReturn(METHOD);
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.createObjectNode()
-                .put("firstName", "John")
-                .put("lastName", "Doe")
-                .put("age", "30")
-                .put("programmingLanguage", "Java");
+                .put(COLUMN_FIRST_NAME, FIRST_NAME)
+                .put(COLUMN_LAST_NAME, LAST_NAME)
+                .put(COLUMN_AGE, AGE)
+                .put(COLUMN_PROGRAMMING_LANGUAGE, PROGRAMMING_LANGUAGE);
 
         // Mock the behavior of req.getReader()
         BufferedReader reader = new BufferedReader(new StringReader(jsonNode.toString()));
@@ -45,14 +54,14 @@ class JsonArgumentsConverterTest {
             throw new RuntimeException(e);
         }
 
-        Arguments argumentsActual = testInstance.convert(httpServletRequest);
+        Arguments actual = testInstance.convert(httpServletRequest);
 
-        assertEquals("/example", argumentsActual.getHashMap().get(RequestArgument.HTTP_PATH));
-        assertEquals("POST", argumentsActual.getHashMap().get(RequestArgument.HTTP_METHOD));
-        assertEquals("John", argumentsActual.getHashMap().get(RequestArgument.FIRSTNAME));
-        assertEquals("Doe", argumentsActual.getHashMap().get(RequestArgument.LASTNAME));
-        assertEquals("30", argumentsActual.getHashMap().get(RequestArgument.AGE));
-        assertEquals("Java", argumentsActual.getHashMap().get(RequestArgument.PROGRAMMING_LANGUAGE));
+        assertThat(actual.getHashMap().get(RequestArgument.HTTP_PATH)).contains(HTTP_PATH);
+        assertThat(actual.getHashMap().get(RequestArgument.HTTP_METHOD)).contains(METHOD);
+        assertThat(actual.getHashMap().get(RequestArgument.FIRSTNAME)).contains(FIRST_NAME);
+        assertThat(actual.getHashMap().get(RequestArgument.LASTNAME)).contains(LAST_NAME);
+        assertThat(actual.getHashMap().get(RequestArgument.AGE)).contains(AGE);
+        assertThat(actual.getHashMap().get(RequestArgument.PROGRAMMING_LANGUAGE)).contains(PROGRAMMING_LANGUAGE);
     }
 }
 

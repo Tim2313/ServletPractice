@@ -24,11 +24,11 @@ class ArgumentToDeveloperConverterTest {
         arguments.getHashMap().put(RequestArgument.AGE, AGE_STRING);
         arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, PROGRAMMING_LANGUAGE);
 
-        Developer actualDeveloper = testInstance.convert(arguments);
+        Developer actual = testInstance.convert(arguments);
 
-        Assertions.assertThat(actualDeveloper.getFirstName()).isEqualTo(FIRST_NAME);
-        Assertions.assertThat(actualDeveloper.getLastName()).isEqualTo(LAST_NAME);
-        Assertions.assertThat(actualDeveloper.getAge()).isEqualTo(AGE_NUMBER);
-        Assertions.assertThat(actualDeveloper.getProgrammingLanguage()).isEqualTo(PROGRAMMING_LANGUAGE);
+        Assertions.assertThat(actual.getFirstName()).isEqualTo(FIRST_NAME);
+        Assertions.assertThat(actual.getLastName()).isEqualTo(LAST_NAME);
+        Assertions.assertThat(actual.getAge()).isEqualTo(AGE_NUMBER);
+        Assertions.assertThat(actual.getProgrammingLanguage()).isEqualTo(PROGRAMMING_LANGUAGE);
     }
 }

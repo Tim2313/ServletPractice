@@ -10,10 +10,8 @@ import org.example.service.DeveloperService;
 import org.example.service.JsonService;
 import org.example.web.HttpMapper;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Incubating;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,6 +27,10 @@ import static org.mockito.Mockito.when;
 class DeveloperControllerTest {
 
     private static final String CREATE_DEVELOPER_JSON_SUCCESS_MESSAGE = "{\"message\": \"Developer is created\"}";
+    private static final String FIRST_NAME = "Tima";
+    private static final String LAST_NAME = "Java";
+    private static final int AGE = 27;
+    private static final String PROGRAMMING_LANGUAGE = "Java";
 
 
     @Mock
@@ -92,10 +94,10 @@ class DeveloperControllerTest {
 
     @Test
     void shouldGetJsonPage() {
-        developer.setFirstName("Vlad");
-        developer.setLastName("Kikul");
-        developer.setAge(23);
-        developer.setProgrammingLanguage("Java");
+        developer.setFirstName(FIRST_NAME);
+        developer.setLastName(LAST_NAME);
+        developer.setAge(AGE);
+        developer.setProgrammingLanguage(PROGRAMMING_LANGUAGE);
 
         List<Developer> developersTest = new LinkedList<>();
         developersTest.add(developer);

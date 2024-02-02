@@ -45,18 +45,18 @@ class PathMapperTest {
     void shouldGetResponse() {
         testInstance.addMapping(HttpMapping.GET_DEVELOPERS_REST, method);
 
-        Response actualResponse = testInstance.getResponse(arguments);
+        Response actual = testInstance.getResponse(arguments);
 
-        assertThat(actualResponse).isEqualTo(response);
+        assertThat(actual).isEqualTo(response);
     }
 
     @Test
     void shouldNotGetResponse() {
         testInstance.addMapping(HttpMapping.NOT_FOUND_HTML, method);
 
-        Response actualResponse = testInstance.getResponse(arguments);
+        Response actual = testInstance.getResponse(arguments);
 
-        assertThat(actualResponse).isEqualTo(response);
+        assertThat(actual).isEqualTo(response);
     }
 
 }

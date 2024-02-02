@@ -60,7 +60,6 @@ class DeveloperServiceTest {
 
     @BeforeEach
     void init() {
-
         developer = new Developer();
         developer.setId(ID);
         developer.setFirstName(FIRST_NAME);
