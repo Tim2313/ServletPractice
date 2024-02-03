@@ -1,7 +1,7 @@
 package org.example.service;
 
 import org.example.model.Developer;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -58,8 +58,8 @@ class DeveloperServiceTest {
 
     private static Developer developer;
 
-    @BeforeEach
-    void init() {
+    @BeforeAll
+    static void init() {
         developer = new Developer();
         developer.setId(ID);
         developer.setFirstName(FIRST_NAME);
@@ -108,4 +108,3 @@ class DeveloperServiceTest {
 
     }
 }
-

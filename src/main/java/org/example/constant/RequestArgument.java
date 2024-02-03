@@ -8,13 +8,13 @@ public enum RequestArgument {
     AGE("age"),
     PROGRAMMING_LANGUAGE("programmingLanguage");
 
-    private final String requestArgument;
+    private final String value;
 
     RequestArgument(String requestUrl) {
-        this.requestArgument = requestUrl;
+        this.value = requestUrl;
     }
 
-    public String getRequestArgument() {
-        return requestArgument;
+    public String getValue() {
+        return value;
     }
 }

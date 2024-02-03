@@ -19,16 +19,16 @@ public class RequestParametersToArguments {
         arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
         arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
-        String firstName = req.getParameter(RequestArgument.FIRSTNAME.getRequestArgument());
+        String firstName = req.getParameter(RequestArgument.FIRSTNAME.getValue());
         arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);
 
-        String lastName = req.getParameter(RequestArgument.LASTNAME.getRequestArgument());
+        String lastName = req.getParameter(RequestArgument.LASTNAME.getValue());
         arguments.getHashMap().put(RequestArgument.LASTNAME, lastName);
 
-        String age = req.getParameter(RequestArgument.AGE.getRequestArgument());
+        String age = req.getParameter(RequestArgument.AGE.getValue());
         arguments.getHashMap().put(RequestArgument.AGE, age);
 
-        String programmingLanguage = req.getParameter(RequestArgument.PROGRAMMING_LANGUAGE.getRequestArgument());
+        String programmingLanguage = req.getParameter(RequestArgument.PROGRAMMING_LANGUAGE.getValue());
         arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, programmingLanguage);
 
         return arguments;

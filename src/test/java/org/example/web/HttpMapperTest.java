@@ -11,12 +11,10 @@ import org.junit.jupiter.api.Test;
 import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.example.constant.HttpMethod.*;
 
 
-class PathMapperTest {
-
-    private static final String METHOD = "GET";
-
+class HttpMapperTest {
     private final HttpMapper testInstance = HttpMapper.getInstance();
 
     private static Function<Arguments, Response> method;
@@ -29,7 +27,7 @@ class PathMapperTest {
     static void setup() {
         arguments = new Arguments();
         arguments.getHashMap().put(RequestArgument.HTTP_PATH, HttpMapping.GET_DEVELOPERS_REST.getUrl());
-        arguments.getHashMap().put(RequestArgument.HTTP_METHOD, METHOD);
+        arguments.getHashMap().put(RequestArgument.HTTP_METHOD, GET);
 
         response = new Response();
 
@@ -58,5 +56,4 @@ class PathMapperTest {
 
         assertThat(actual).isEqualTo(response);
     }
-
 }
