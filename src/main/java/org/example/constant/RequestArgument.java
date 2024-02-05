@@ -1,12 +1,17 @@
 package org.example.constant;
 
 public enum RequestArgument {
-    HTTP_PATH("path"),
-    HTTP_METHOD("method"),
-    FIRSTNAME("firstName"),
-    LASTNAME("lastName"),
-    AGE("age"),
-    PROGRAMMING_LANGUAGE("programmingLanguage");
+    HTTP_PATH_ARG("path"),
+
+    HTTP_METHOD_ARG("method"),
+
+    FIRSTNAME_ARG("firstName"),
+
+    LASTNAME_ARG("lastName"),
+
+    AGE_ARG("age"),
+
+    PROGRAMMING_LANGUAGE_ARG("programmingLanguage");
 
     private final String value;
 

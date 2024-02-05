@@ -3,13 +3,13 @@ package org.example.constant;
 public enum ContextType {
     HTML("text/html"), JSON("application/json");
 
-    private final String contextType;
+    private final String value;
 
     ContextType(String contextType) {
-        this.contextType = contextType;
+        this.value = contextType;
     }
 
-    public String getContextType() {
-        return contextType;
+    public String getValue() {
+        return value;
     }
 }

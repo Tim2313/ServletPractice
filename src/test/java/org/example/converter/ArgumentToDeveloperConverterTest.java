@@ -1,11 +1,12 @@
 package org.example.converter;
 
 import org.assertj.core.api.Assertions;
-import org.example.constant.RequestArgument;
 import org.example.model.Arguments;
 import org.example.model.Developer;
 
 import org.junit.jupiter.api.Test;
+
+import static org.example.constant.RequestArgument.*;
 
 class ArgumentToDeveloperConverterTest {
     private static final String FIRST_NAME = "Tima";
@@ -19,10 +20,10 @@ class ArgumentToDeveloperConverterTest {
     void shouldConvert() {
         Arguments arguments = new Arguments();
 
-        arguments.getHashMap().put(RequestArgument.FIRSTNAME, FIRST_NAME);
-        arguments.getHashMap().put(RequestArgument.LASTNAME, LAST_NAME);
-        arguments.getHashMap().put(RequestArgument.AGE, AGE_STRING);
-        arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, PROGRAMMING_LANGUAGE);
+        arguments.getHashMap().put(FIRSTNAME_ARG, FIRST_NAME);
+        arguments.getHashMap().put(LASTNAME_ARG, LAST_NAME);
+        arguments.getHashMap().put(AGE_ARG, AGE_STRING);
+        arguments.getHashMap().put(PROGRAMMING_LANGUAGE_ARG, PROGRAMMING_LANGUAGE);
 
         Developer actual = testInstance.convert(arguments);
 

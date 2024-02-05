@@ -62,13 +62,13 @@ public class DeveloperController {
         jspAttributes.add(jspAttribute);
         response.setJspAttributes(jspAttributes);
 
-        String contextType = ContextType.HTML.getContextType();
+        String contextType = ContextType.HTML.getValue();
         response.setContentType(contextType);
 
-        int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
+        int responseCode = ResponseCode.HTTP_OK.getValue();
         response.setCode(responseCode);
 
-        response.setJspPage(JspPage.DEVELOPER_TABLE_PAGE.getFilePath());
+        response.setJspPage(JspPage.DEVELOPER_TABLE_PAGE.getValue());
         LOGGER.info("'Developer table' page has showed!");
 
         return response;
@@ -80,12 +80,12 @@ public class DeveloperController {
 
         String jsonResponse = jsonService.getDevelopers(developers);
 
-        String contextType = ContextType.JSON.getContextType();
+        String contextType = ContextType.JSON.getValue();
         response.setContentType(contextType);
 
         response.setBody(jsonResponse);
 
-        int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
+        int responseCode = ResponseCode.HTTP_OK.getValue();
         response.setCode(responseCode);
 
         LOGGER.info("'Json' page has showed!");
@@ -99,8 +99,8 @@ public class DeveloperController {
 
         developerService.addDeveloper(developer);
 
-        response.setCode(ResponseCode.HTTP_OK.getResponseCodes());
-        response.setContentType(ContextType.HTML.getContextType());
+        response.setCode(ResponseCode.HTTP_OK.getValue());
+        response.setContentType(ContextType.HTML.getValue());
         response.setRedirect(HttpMapping.GET_DEVELOPERS_FORM_HTML);
 
         LOGGER.info("Developer is created!");
@@ -112,7 +112,7 @@ public class DeveloperController {
 
         response.setCode(200);
 
-        String contextType = ContextType.JSON.getContextType();
+        String contextType = ContextType.JSON.getValue();
         response.setContentType(contextType);
 
         String message = "{\"message\": \"Developer is created\"}";

@@ -20,8 +20,8 @@ public class JsonToArgumentsConverter {
 
         Arguments arguments = new Arguments();
 
-        arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
-        arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
+        arguments.getHashMap().put(RequestArgument.HTTP_PATH_ARG, requestURI);
+        arguments.getHashMap().put(RequestArgument.HTTP_METHOD_ARG, requestHttpMethod);
 
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -33,16 +33,16 @@ public class JsonToArgumentsConverter {
         }
 
         String firstName = jsonNode.get("firstName").asText();
-        arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);
+        arguments.getHashMap().put(RequestArgument.FIRSTNAME_ARG, firstName);
 
         String lastName = jsonNode.get("lastName").asText();
-        arguments.getHashMap().put(RequestArgument.LASTNAME, lastName);
+        arguments.getHashMap().put(RequestArgument.LASTNAME_ARG, lastName);
 
         String age = jsonNode.get("age").asText();
-        arguments.getHashMap().put(RequestArgument.AGE, age);
+        arguments.getHashMap().put(RequestArgument.AGE_ARG, age);
 
         String programmingLanguage = jsonNode.get("programmingLanguage").asText();
-        arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, programmingLanguage);
+        arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE_ARG, programmingLanguage);
 
 
         return arguments;

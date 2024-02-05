@@ -3,7 +3,6 @@ package org.example.converter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.constant.RequestArgument;
 import org.example.model.Arguments;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,10 +14,9 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import static org.mockito.Mockito.when;
-
 import static org.example.model.Developer.*;
+import static org.example.constant.RequestArgument.*;
 
 @ExtendWith(MockitoExtension.class)
 class JsonArgumentsConverterTest {
@@ -56,12 +54,12 @@ class JsonArgumentsConverterTest {
 
         Arguments actual = testInstance.convert(httpServletRequest);
 
-        assertThat(actual.getHashMap().get(RequestArgument.HTTP_PATH)).contains(HTTP_PATH);
-        assertThat(actual.getHashMap().get(RequestArgument.HTTP_METHOD)).contains(METHOD);
-        assertThat(actual.getHashMap().get(RequestArgument.FIRSTNAME)).contains(FIRST_NAME);
-        assertThat(actual.getHashMap().get(RequestArgument.LASTNAME)).contains(LAST_NAME);
-        assertThat(actual.getHashMap().get(RequestArgument.AGE)).contains(AGE);
-        assertThat(actual.getHashMap().get(RequestArgument.PROGRAMMING_LANGUAGE)).contains(PROGRAMMING_LANGUAGE);
+        assertThat(actual.getHashMap().get(HTTP_PATH_ARG)).contains(HTTP_PATH);
+        assertThat(actual.getHashMap().get(HTTP_METHOD_ARG)).contains(METHOD);
+        assertThat(actual.getHashMap().get(FIRSTNAME_ARG)).contains(FIRST_NAME);
+        assertThat(actual.getHashMap().get(LASTNAME_ARG)).contains(LAST_NAME);
+        assertThat(actual.getHashMap().get(AGE_ARG)).contains(AGE);
+        assertThat(actual.getHashMap().get(PROGRAMMING_LANGUAGE_ARG)).contains(PROGRAMMING_LANGUAGE);
     }
 }
 

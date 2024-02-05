@@ -1,7 +1,5 @@
 package org.example.controller;
 
-import org.example.constant.ContextType;
-import org.example.constant.JspPage;
 import org.example.model.Arguments;
 import org.example.model.Response;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.example.constant.ResponseCode.*;
+import static org.example.constant.ContextType.*;
+import static org.example.constant.JspPage.*;
 
 class MainControllerTest {
 
@@ -25,24 +25,24 @@ class MainControllerTest {
     void shouldGetHelloPage() {
         Response actual = testInstance.getHelloPage(arguments);
 
-        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getResponseCodes());
-        assertThat(actual.getContentType()).isEqualTo(ContextType.HTML.getContextType());
-        assertThat(actual.getJspPage()).isEqualTo(JspPage.HELLO_PAGE.getFilePath());
+        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
+        assertThat(actual.getContentType()).isEqualTo(HTML.getValue());
+        assertThat(actual.getJspPage()).isEqualTo(HELLO_PAGE.getValue());
     }
 
     @Test
     void shouldGetNotFoundResponsePage() {
         Response actual = testInstance.getNotFoundResponsePage(arguments);
 
-        assertThat(actual.getCode()).isEqualTo(HTTP_NOT_FOUND.getResponseCodes());
+        assertThat(actual.getCode()).isEqualTo(HTTP_NOT_FOUND.getValue());
     }
 
     @Test
     void shouldGetCreationFormPage() {
         Response actual = testInstance.getCreationFormPage(arguments);
 
-        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getResponseCodes());
-        assertThat(ContextType.HTML.getContextType()).isEqualTo(actual.getContentType());
-        assertThat(JspPage.CREATION_FORM_PAGE.getFilePath()).isEqualTo(actual.getJspPage());
+        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
+        assertThat(actual.getContentType()).isEqualTo(HTML.getValue());
+        assertThat(actual.getJspPage()).isEqualTo(CREATION_FORM_PAGE.getValue());
     }
 }

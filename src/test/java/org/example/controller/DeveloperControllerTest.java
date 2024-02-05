@@ -1,8 +1,5 @@
 package org.example.controller;
 
-import org.example.constant.ContextType;
-import org.example.constant.HttpMapping;
-import org.example.constant.JspPage;
 import org.example.converter.ArgumentToDeveloperConverter;
 import org.example.model.Arguments;
 import org.example.model.Developer;
@@ -17,16 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.example.constant.ResponseCode.*;
 import static org.example.constant.ContextType.*;
 import static org.example.constant.JspPage.*;
 import static org.example.constant.HttpMapping.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DeveloperControllerTest {
@@ -57,7 +52,12 @@ class DeveloperControllerTest {
     @BeforeAll
     static void setup() {
         arguments = new Arguments();
+
         developer = new Developer();
+        developer.setFirstName(FIRST_NAME);
+        developer.setLastName(LAST_NAME);
+        developer.setAge(AGE);
+        developer.setProgrammingLanguage(PROGRAMMING_LANGUAGE);
     }
 
     @Test
@@ -67,8 +67,8 @@ class DeveloperControllerTest {
         Response actual = testInstance.createDeveloperJson(arguments);
 
         verify(developerService).addDeveloper(developer);
-        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getResponseCodes());
-        assertThat(actual.getContentType()).isEqualTo(JSON.getContextType());
+        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
+        assertThat(actual.getContentType()).isEqualTo(JSON.getValue());
         assertThat(actual.getBody()).isEqualTo(CREATE_DEVELOPER_JSON_SUCCESS_MESSAGE);
     }
 
@@ -80,8 +80,8 @@ class DeveloperControllerTest {
 
         verify(developerService).addDeveloper(developer);
         assertThat(actual.getRedirect()).isEqualTo(GET_DEVELOPERS_FORM_HTML);
-        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getResponseCodes());
-        assertThat(actual.getContentType()).isEqualTo(HTML.getContextType());
+        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
+        assertThat(actual.getContentType()).isEqualTo(HTML.getValue());
     }
 
     @Test
@@ -90,29 +90,24 @@ class DeveloperControllerTest {
 
         Response actual = testInstance.getTablePage(arguments);
 
-        verify(actual).getJspAttributes();
-        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getResponseCodes());
-        assertThat(actual.getJspPage()).isEqualTo(DEVELOPER_TABLE_PAGE.getFilePath());
+        assertThat(actual)
+                .extracting(Response::getJspAttributes)
+                .isNotNull();
+
+        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
+        assertThat(actual.getJspPage()).isEqualTo(DEVELOPER_TABLE_PAGE.getValue());
     }
 
     @Test
     void shouldGetJsonPage() {
-        developer.setFirstName(FIRST_NAME);
-        developer.setLastName(LAST_NAME);
-        developer.setAge(AGE);
-        developer.setProgrammingLanguage(PROGRAMMING_LANGUAGE);
-
-        List<Developer> developersTest = new LinkedList<>();
-        developersTest.add(developer);
-
-        when(developerService.getDevelopers()).thenReturn(developersTest);
+        when(developerService.getDevelopers()).thenReturn(List.of(developer));
 
         Response actual = testInstance.getJsonPage(arguments);
 
-        String testBody = jsonService.getDevelopers(developersTest);
+        String testBody = jsonService.getDevelopers(List.of(developer));
 
-        verify(jsonService).getDevelopers(developersTest);
+        verify(jsonService, times(2)).getDevelopers(List.of(developer));
         assertThat(actual.getBody()).isEqualTo(testBody);
-        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getResponseCodes());
+        assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
     }
 }

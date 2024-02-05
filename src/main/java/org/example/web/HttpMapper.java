@@ -20,15 +20,17 @@ public class HttpMapper {
 
     public void clearMapping() {
         PAGE_MAP.clear();
+        LOGGER.info("Clear mapping");
     }
 
     public void addMapping(HttpMapping url, Function<Arguments, Response> method) {
         PAGE_MAP.put(url, method);
+        LOGGER.info("Add new mapping: url: {},method: {}",url, method);
     }
 
     public Response getResponse(Arguments arguments) {
-        String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH);
-        String method = arguments.getHashMap().get(RequestArgument.HTTP_METHOD);
+        String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH_ARG);
+        String method = arguments.getHashMap().get(RequestArgument.HTTP_METHOD_ARG);
         HttpMapping finalPath = HttpMapping.getByFullUrl(pathWithWarName, method);
         if (PAGE_MAP.containsKey(finalPath)) {
             return PAGE_MAP.get(finalPath).apply(arguments);

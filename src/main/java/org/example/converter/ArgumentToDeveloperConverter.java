@@ -15,17 +15,17 @@ public class ArgumentToDeveloperConverter {
 
         Developer developer = new Developer();
 
-        String firstName = arguments.getHashMap().get(RequestArgument.FIRSTNAME);
+        String firstName = arguments.getHashMap().get(RequestArgument.FIRSTNAME_ARG);
         developer.setFirstName(firstName);
 
-        String lastName = arguments.getHashMap().get(RequestArgument.LASTNAME);
+        String lastName = arguments.getHashMap().get(RequestArgument.LASTNAME_ARG);
         developer.setLastName(lastName);
 
-        String inputAge = arguments.getHashMap().get(RequestArgument.AGE);
+        String inputAge = arguments.getHashMap().get(RequestArgument.AGE_ARG);
         int age = Integer.parseInt(inputAge);
         developer.setAge(age);
 
-        String programmingLang = arguments.getHashMap().get(RequestArgument.PROGRAMMING_LANGUAGE);
+        String programmingLang = arguments.getHashMap().get(RequestArgument.PROGRAMMING_LANGUAGE_ARG);
         developer.setProgrammingLanguage(programmingLang);
 
         return developer;

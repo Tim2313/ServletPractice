@@ -29,13 +29,13 @@ public class MainController {
     public Response getHelloPage(Arguments arguments) {
         Response response = new Response();
 
-        String contextType = ContextType.HTML.getContextType();
+        String contextType = ContextType.HTML.getValue();
         response.setContentType(contextType);
 
-        int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
+        int responseCode = ResponseCode.HTTP_OK.getValue();
         response.setCode(responseCode);
 
-        String jspPage = JspPage.HELLO_PAGE.getFilePath();
+        String jspPage = JspPage.HELLO_PAGE.getValue();
         response.setJspPage(jspPage);
 
         LOGGER.info("'Hello' page has showed!");
@@ -45,13 +45,13 @@ public class MainController {
     public Response getNotFoundResponsePage(Arguments arguments) {
         Response response = new Response();
 
-        String contextType = ContextType.HTML.getContextType();
+        String contextType = ContextType.HTML.getValue();
         response.setContentType(contextType);
 
-        int responseCode = ResponseCode.HTTP_NOT_FOUND.getResponseCodes();
+        int responseCode = ResponseCode.HTTP_NOT_FOUND.getValue();
         response.setCode(responseCode);
 
-        String jspPage = JspPage.NOT_FOUND_PAGE.getFilePath();
+        String jspPage = JspPage.NOT_FOUND_PAGE.getValue();
         response.setJspPage(jspPage);
 
         LOGGER.info("'NotFoundResponse' page has showed!");
@@ -61,13 +61,13 @@ public class MainController {
     public Response getCreationFormPage(Arguments arguments) {
         Response response = new Response();
 
-        String contextType = ContextType.HTML.getContextType();
+        String contextType = ContextType.HTML.getValue();
         response.setContentType(contextType);
 
-        int responseCode = ResponseCode.HTTP_OK.getResponseCodes();
+        int responseCode = ResponseCode.HTTP_OK.getValue();
         response.setCode(responseCode);
 
-        String jspPage = JspPage.CREATION_FORM_PAGE.getFilePath();
+        String jspPage = JspPage.CREATION_FORM_PAGE.getValue();
         response.setJspPage(jspPage);
 
         LOGGER.info("'CreationFormPage' page has showed!");

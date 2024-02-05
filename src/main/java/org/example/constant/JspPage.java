@@ -6,13 +6,13 @@ public enum JspPage {
     NOT_FOUND_PAGE("/WEB-INF/views/notFoundPage.jsp"),
     CREATION_FORM_PAGE("/WEB-INF/views/creationForm.jsp");
 
-    private final String filePath;
+    private final String value;
 
     JspPage(String jspPage) {
-        this.filePath = jspPage;
+        this.value = jspPage;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getValue() {
+        return value;
     }
 }
