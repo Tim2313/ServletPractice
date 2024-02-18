@@ -29,8 +29,8 @@ public class HttpMapper {
     }
 
     public Response getResponse(Arguments arguments) {
-        String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH_ARG);
-        String method = arguments.getHashMap().get(RequestArgument.HTTP_METHOD_ARG);
+        String pathWithWarName = arguments.getHashMap().get(RequestArgument.HTTP_PATH);
+        String method = arguments.getHashMap().get(RequestArgument.HTTP_METHOD);
         HttpMapping finalPath = HttpMapping.getByFullUrl(pathWithWarName, method);
         if (PAGE_MAP.containsKey(finalPath)) {
             return PAGE_MAP.get(finalPath).apply(arguments);

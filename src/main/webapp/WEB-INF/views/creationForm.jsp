@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Developer Form</title>
-  <%@ page import="org.example.constant.UrlPath" %>
+  <%@ page import="org.example.constant.HttpMapping" %>
   <%@ page import="org.example.constant.RequestArgument" %>
   <style>
   body {
@@ -49,31 +49,31 @@
 
 <body>
 
-  <form action="<%= UrlPath.POST_DEVELOPERS_HTML.getWarUrl() %>" method="POST">
+  <form action="<%= HttpMapping.POST_DEVELOPERS_HTML.getWarUrl() %>" method="POST">
       <section>
         <h2>New developer information</h2>
-          <label for="<%= RequestArgument.FIRSTNAME.getRequestArgument() %>">
+          <label for="<%= RequestArgument.FIRSTNAME.getValue() %>">
             <span>First Name: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.FIRSTNAME.getRequestArgument() %>" required />
+          <input type="text" name="<%= RequestArgument.FIRSTNAME.getValue() %>" required />
 
 
-          <label for="<%= RequestArgument.LASTNAME.getRequestArgument() %>">
+          <label for="<%= RequestArgument.LASTNAME.getValue() %>">
             <span>Last Name: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.LASTNAME.getRequestArgument() %>" required />
+          <input type="text" name="<%= RequestArgument.LASTNAME.getValue() %>" required />
 
 
-          <label for="<%= RequestArgument.AGE.getRequestArgument() %>">
+          <label for="<%= RequestArgument.AGE.getValue() %>">
             <span>Age: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.AGE.getRequestArgument() %>" required />
+          <input type="text" name="<%= RequestArgument.AGE.getValue() %>" required />
 
 
-          <label for="<%= RequestArgument.PROGRAMMING_LANGUAGE.getRequestArgument() %>">
+          <label for="<%= RequestArgument.PROGRAMMING_LANGUAGE.getValue() %>">
             <span>Programming Language: </span>
           </label>
-          <input type="text" name="<%= RequestArgument.PROGRAMMING_LANGUAGE.getRequestArgument() %>" required />
+          <input type="text" name="<%= RequestArgument.PROGRAMMING_LANGUAGE.getValue() %>" required />
 
       </section>
 

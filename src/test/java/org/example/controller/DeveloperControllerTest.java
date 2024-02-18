@@ -26,6 +26,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class DeveloperControllerTest {
 
+    private static final String GSON_STRING = "{\"id\":1,\"firstName\":\"Tima\",\"lastName\":\"Javax\",\"age\":21,\"programmingLanguage\":\"Java\"}";
     private static final String CREATE_DEVELOPER_JSON_SUCCESS_MESSAGE = "{\"message\": \"Developer is created\"}";
     private static final String FIRST_NAME = "Tima";
     private static final String LAST_NAME = "Java";
@@ -35,10 +36,13 @@ class DeveloperControllerTest {
 
     @Mock
     private DeveloperService developerService;
+
     @Mock
     private HttpMapper httpMapper;
+
     @Mock
     private ArgumentToDeveloperConverter argumentToDeveloperConverter;
+
     @Mock
     private JsonService jsonService;
 
@@ -66,7 +70,7 @@ class DeveloperControllerTest {
 
         Response actual = testInstance.createDeveloperJson(arguments);
 
-        verify(developerService).addDeveloper(developer);
+        verify(developerService).createDeveloper(developer);
         assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
         assertThat(actual.getContentType()).isEqualTo(JSON.getValue());
         assertThat(actual.getBody()).isEqualTo(CREATE_DEVELOPER_JSON_SUCCESS_MESSAGE);
@@ -78,7 +82,7 @@ class DeveloperControllerTest {
 
         Response actual = testInstance.createDeveloperHtml(arguments);
 
-        verify(developerService).addDeveloper(developer);
+        verify(developerService).createDeveloper(developer);
         assertThat(actual.getRedirect()).isEqualTo(GET_DEVELOPERS_FORM_HTML);
         assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
         assertThat(actual.getContentType()).isEqualTo(HTML.getValue());
@@ -93,7 +97,6 @@ class DeveloperControllerTest {
         assertThat(actual)
                 .extracting(Response::getJspAttributes)
                 .isNotNull();
-
         assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
         assertThat(actual.getJspPage()).isEqualTo(DEVELOPER_TABLE_PAGE.getValue());
     }
@@ -101,13 +104,12 @@ class DeveloperControllerTest {
     @Test
     void shouldGetJsonPage() {
         when(developerService.getDevelopers()).thenReturn(List.of(developer));
+        when(jsonService.getDevelopers(List.of(developer))).thenReturn(GSON_STRING);
 
         Response actual = testInstance.getJsonPage(arguments);
 
-        String testBody = jsonService.getDevelopers(List.of(developer));
-
-        verify(jsonService, times(2)).getDevelopers(List.of(developer));
-        assertThat(actual.getBody()).isEqualTo(testBody);
+        verify(jsonService).getDevelopers(List.of(developer));
+        assertThat(actual.getBody()).isEqualTo(GSON_STRING);
         assertThat(actual.getCode()).isEqualTo(HTTP_OK.getValue());
     }
 }

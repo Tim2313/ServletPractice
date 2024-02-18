@@ -97,7 +97,7 @@ class DeveloperServiceTest {
         when(connectionService.getConnection()).thenReturn(connection);
         when(connection.prepareStatement(ADD_DEVELOPER)).thenReturn(preparedStatement);
 
-        testInstance.addDeveloper(developer);
+        testInstance.createDeveloper(developer);
 
         verify(preparedStatement).setString(1, FIRST_NAME);
         verify(preparedStatement).setString(2, LAST_NAME);

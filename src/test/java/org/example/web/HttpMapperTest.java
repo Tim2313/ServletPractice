@@ -26,8 +26,8 @@ class HttpMapperTest {
     @BeforeAll
     static void setup() {
         arguments = new Arguments();
-        arguments.getHashMap().put(RequestArgument.HTTP_PATH_ARG, HttpMapping.GET_DEVELOPERS_REST.getUrl());
-        arguments.getHashMap().put(RequestArgument.HTTP_METHOD_ARG, GET);
+        arguments.getHashMap().put(RequestArgument.HTTP_PATH, HttpMapping.GET_DEVELOPERS_REST.getUrl());
+        arguments.getHashMap().put(RequestArgument.HTTP_METHOD, GET);
 
         response = new Response();
 

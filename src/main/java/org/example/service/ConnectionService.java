@@ -36,7 +36,7 @@ public class ConnectionService {
             connectionLocal = DriverManager.getConnection(getDatabaseUrl(), DATABASE_USER, DATABASE_PASSWORD);
             LOGGER.info("Connection Established!");
         } catch (Exception e) {
-            LOGGER.error("Check connection methods!");
+            LOGGER.error("Check connection methods: {}", e.getMessage());
             throw new RuntimeException(e);
         }
 

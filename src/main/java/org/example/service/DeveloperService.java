@@ -20,7 +20,7 @@ public class DeveloperService {
         this.connectionService = connectionService;
     }
 
-    private DeveloperService () {
+    private DeveloperService() {
         this(ConnectionService.getInstance());
     }
 
@@ -49,12 +49,12 @@ public class DeveloperService {
             }
             LOGGER.info("{} developers have been retrieved from the database.", developers.size());
         } catch (SQLException ex) {
-            LOGGER.error("Unable to retrieve developers from DB");
+            LOGGER.error("Unable to retrieve developers from DB: {}", ex.getMessage());
         }
         return developers;
     }
 
-    public void addDeveloper(Developer developer) {
+    public void createDeveloper(Developer developer) {
         Connection connection = connectionService.getConnection();
 
         PreparedStatement preparedStatement;

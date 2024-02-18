@@ -39,8 +39,8 @@ public class MainServlet extends HttpServlet {
         LOGGER.info("We enter on path {}", requestURI);
 
         Arguments arguments = new Arguments();
-        arguments.getHashMap().put(RequestArgument.HTTP_PATH_ARG, requestURI);
-        arguments.getHashMap().put(RequestArgument.HTTP_METHOD_ARG, requestHttpMethod);
+        arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
+        arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
         Response response = httpMapper.getResponse(arguments);
 

@@ -97,7 +97,7 @@ public class DeveloperController {
 
         Developer developer = argumentToDeveloperConverter.convert(arguments);
 
-        developerService.addDeveloper(developer);
+        developerService.createDeveloper(developer);
 
         response.setCode(ResponseCode.HTTP_OK.getValue());
         response.setContentType(ContextType.HTML.getValue());
@@ -119,7 +119,7 @@ public class DeveloperController {
         response.setBody(message);
 
         Developer developer = argumentToDeveloperConverter.convert(arguments);
-        developerService.addDeveloper(developer);
+        developerService.createDeveloper(developer);
 
         LOGGER.info("Json is converted to developer and created");
         return response;

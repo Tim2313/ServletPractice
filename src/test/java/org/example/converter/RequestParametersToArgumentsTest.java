@@ -2,6 +2,7 @@ package org.example.converter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.assertj.core.api.Assertions;
+import org.example.constant.RequestArgument;
 import org.example.model.Arguments;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,17 +27,17 @@ class RequestParametersToArgumentsTest {
 
     @Test
     void shouldConvert() {
-        when(httpServletRequest.getParameter(FIRSTNAME_ARG.getValue())).thenReturn(FIRST_NAME);
-        when(httpServletRequest.getParameter(LASTNAME_ARG.getValue())).thenReturn(LAST_NAME);
-        when(httpServletRequest.getParameter(AGE_ARG.getValue())).thenReturn(AGE);
-        when(httpServletRequest.getParameter(PROGRAMMING_LANGUAGE_ARG.getValue())).thenReturn(PROGRAMMING_LANGUAGE);
+        when(httpServletRequest.getParameter(FIRSTNAME.getValue())).thenReturn(FIRST_NAME);
+        when(httpServletRequest.getParameter(LASTNAME.getValue())).thenReturn(LAST_NAME);
+        when(httpServletRequest.getParameter(RequestArgument.AGE.getValue())).thenReturn(AGE);
+        when(httpServletRequest.getParameter(RequestArgument.PROGRAMMING_LANGUAGE.getValue())).thenReturn(PROGRAMMING_LANGUAGE);
 
         Arguments actual = testInstance.convert(httpServletRequest);
 
         Assertions.assertThat(actual.getHashMap())
-                .containsEntry(FIRSTNAME_ARG, FIRST_NAME)
-                .containsEntry(LASTNAME_ARG, LAST_NAME)
-                .containsEntry(AGE_ARG, AGE)
-                .containsEntry(PROGRAMMING_LANGUAGE_ARG, PROGRAMMING_LANGUAGE);
+                .containsEntry(FIRSTNAME, FIRST_NAME)
+                .containsEntry(LASTNAME, LAST_NAME)
+                .containsEntry(RequestArgument.AGE, AGE)
+                .containsEntry(RequestArgument.PROGRAMMING_LANGUAGE, PROGRAMMING_LANGUAGE);
     }
 }

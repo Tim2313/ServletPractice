@@ -16,20 +16,20 @@ public class RequestParametersToArguments {
 
         Arguments arguments = new Arguments();
 
-        arguments.getHashMap().put(RequestArgument.HTTP_PATH_ARG, requestURI);
-        arguments.getHashMap().put(RequestArgument.HTTP_METHOD_ARG, requestHttpMethod);
+        arguments.getHashMap().put(RequestArgument.HTTP_PATH, requestURI);
+        arguments.getHashMap().put(RequestArgument.HTTP_METHOD, requestHttpMethod);
 
-        String firstName = req.getParameter(RequestArgument.FIRSTNAME_ARG.getValue());
-        arguments.getHashMap().put(RequestArgument.FIRSTNAME_ARG, firstName);
+        String firstName = req.getParameter(RequestArgument.FIRSTNAME.getValue());
+        arguments.getHashMap().put(RequestArgument.FIRSTNAME, firstName);
 
-        String lastName = req.getParameter(RequestArgument.LASTNAME_ARG.getValue());
-        arguments.getHashMap().put(RequestArgument.LASTNAME_ARG, lastName);
+        String lastName = req.getParameter(RequestArgument.LASTNAME.getValue());
+        arguments.getHashMap().put(RequestArgument.LASTNAME, lastName);
 
-        String age = req.getParameter(RequestArgument.AGE_ARG.getValue());
-        arguments.getHashMap().put(RequestArgument.AGE_ARG, age);
+        String age = req.getParameter(RequestArgument.AGE.getValue());
+        arguments.getHashMap().put(RequestArgument.AGE, age);
 
-        String programmingLanguage = req.getParameter(RequestArgument.PROGRAMMING_LANGUAGE_ARG.getValue());
-        arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE_ARG, programmingLanguage);
+        String programmingLanguage = req.getParameter(RequestArgument.PROGRAMMING_LANGUAGE.getValue());
+        arguments.getHashMap().put(RequestArgument.PROGRAMMING_LANGUAGE, programmingLanguage);
 
         return arguments;
     }
