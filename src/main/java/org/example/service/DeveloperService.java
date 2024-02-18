@@ -4,26 +4,25 @@ import org.example.model.Developer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeveloperService {
 
-    private static final String GET_DEVELOPERS = "select id, firstname, lastname, age, proglang from developer";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_FIRST_NAME = "firstname";
-    private static final String COLUMN_LASTNAME = "lastname";
-    private static final String COLUMN_AGE = "age";
-    private static final String COLUMN_PROG_LANG = "proglang";
-
+    private static final String GET_DEVELOPERS = "select id, firstName, lastName, age, programmingLanguage from developer";
+    private static final String ADD_DEVELOPER = "INSERT INTO developer(firstName, lastName, age, programmingLanguage) VALUES (?, ?, ?, ?)";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloperService.class);
-    private final ConnectionService connectionService = ConnectionService.getInstance();
-
+    private final ConnectionService connectionService;
     private static DeveloperService instance;
+
+    public DeveloperService(ConnectionService connectionService) {
+        this.connectionService = connectionService;
+    }
+
+    private DeveloperService() {
+        this(ConnectionService.getInstance());
+    }
 
     public List<Developer> getDevelopers() {
         Connection connection = connectionService.getConnection();
@@ -33,28 +32,44 @@ public class DeveloperService {
                 ResultSet resultSet = statement.executeQuery(GET_DEVELOPERS)
         ) {
             while (resultSet.next()) {
-                int id = resultSet.getInt(COLUMN_ID);
-                String firstname = resultSet.getString(COLUMN_FIRST_NAME);
-                String lastname = resultSet.getString(COLUMN_LASTNAME);
-                int age = resultSet.getInt(COLUMN_AGE);
-                String proglang = resultSet.getString(COLUMN_PROG_LANG);
+                int id = resultSet.getInt(Developer.COLUMN_ID);
+                String firstname = resultSet.getString(Developer.COLUMN_FIRST_NAME);
+                String lastname = resultSet.getString(Developer.COLUMN_LAST_NAME);
+                int age = resultSet.getInt(Developer.COLUMN_AGE);
+                String programmingLanguage = resultSet.getString(Developer.COLUMN_PROGRAMMING_LANGUAGE);
 
                 Developer developer = new Developer();
                 developer.setId(id);
                 developer.setFirstName(firstname);
-                developer.setSecondName(lastname);
+                developer.setLastName(lastname);
                 developer.setAge(age);
-                developer.setProgLang(proglang);
+                developer.setProgrammingLanguage(programmingLanguage);
 
                 developers.add(developer);
             }
             LOGGER.info("{} developers have been retrieved from the database.", developers.size());
         } catch (SQLException ex) {
-            LOGGER.error("Unable to retrieve developers from DB");
-            ex.printStackTrace();
-            throw new RuntimeException(ex);
+            LOGGER.error("Unable to retrieve developers from DB: {}", ex.getMessage());
         }
         return developers;
+    }
+
+    public void createDeveloper(Developer developer) {
+        Connection connection = connectionService.getConnection();
+
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connection.prepareStatement(ADD_DEVELOPER);
+
+            preparedStatement.setString(1, developer.getFirstName());
+            preparedStatement.setString(2, developer.getLastName());
+            preparedStatement.setInt(3, developer.getAge());
+            preparedStatement.setString(4, developer.getProgrammingLanguage());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("Error occurs in sql query: {}", e.getErrorCode());
+        }
     }
 
     public static DeveloperService getInstance() {

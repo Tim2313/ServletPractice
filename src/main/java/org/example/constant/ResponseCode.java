@@ -4,14 +4,14 @@ public enum ResponseCode {
 
     HTTP_OK(200), HTTP_NOT_FOUND(404);
 
-    private final int responseCodes;
+    private final int value;
 
     ResponseCode(int responseCodes) {
-        this.responseCodes = responseCodes;
+        this.value = responseCodes;
     }
 
-    public int getResponseCodes() {
-        return responseCodes;
+    public int getValue() {
+        return value;
     }
 
 }

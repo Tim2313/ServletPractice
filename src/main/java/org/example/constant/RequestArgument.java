@@ -1,12 +1,25 @@
 package org.example.constant;
 
 public enum RequestArgument {
-    PATH("path");
+    HTTP_PATH("path"),
 
-    private final String requestUrl;
+    HTTP_METHOD("method"),
+
+    FIRSTNAME("firstName"),
+
+    LASTNAME("lastName"),
+
+    AGE("age"),
+
+    PROGRAMMING_LANGUAGE("programmingLanguage");
+
+    private final String value;
 
     RequestArgument(String requestUrl) {
-        this.requestUrl = requestUrl;
+        this.value = requestUrl;
     }
 
+    public String getValue() {
+        return value;
+    }
 }

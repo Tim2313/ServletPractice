@@ -1,24 +1,26 @@
 package org.example.model;
+
+import java.util.Objects;
+
 public class Developer {
 
-    public static final String COLUMN_NAME_ID = "Id";
-    public static final String COLUMN_NAME_FIRST_NAME = "First Name";
-    public static final String COLUMN_NAME_SECOND_NAME = "Second Name";
-    public static final String COLUMN_NAME_AGE = "Age";
-    public static final String COLUMN_NAME_PROGRAMMING_LANG = "Programming Language";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_FIRST_NAME = "firstName";
+    public static final String COLUMN_LAST_NAME = "lastName";
+    public static final String COLUMN_AGE = "age";
+    public static final String COLUMN_PROGRAMMING_LANGUAGE = "programmingLanguage";
     private int id;
     private String firstName;
-    private String secondName;
+    private String lastName;
     private int age;
-    private String progLang;
+    private String programmingLanguage;
 
-
-    public Developer(int id, String firstName, String secondName, int age, String progLang) {
+    public Developer(int id, String firstName, String lastName, int age, String programmingLanguage) {
         this.id = id;
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.age = age;
-        this.progLang = progLang;
+        this.programmingLanguage = programmingLanguage;
     }
 
     public Developer() {
@@ -40,12 +42,12 @@ public class Developer {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getAge() {
@@ -56,12 +58,12 @@ public class Developer {
         this.age = age;
     }
 
-    public String getProgLang() {
-        return progLang;
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
     }
 
-    public void setProgLang(String progLang) {
-        this.progLang = progLang;
+    public void setProgrammingLanguage(String programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
 
@@ -70,9 +72,22 @@ public class Developer {
         return "Developer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                ", progLang='" + progLang + '\'' +
+                ", programmingLanguage='" + programmingLanguage + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Developer developer = (Developer) o;
+        return id == developer.id && age == developer.age && Objects.equals(firstName, developer.firstName) && Objects.equals(lastName, developer.lastName) && Objects.equals(programmingLanguage, developer.programmingLanguage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, age, programmingLanguage);
     }
 }
